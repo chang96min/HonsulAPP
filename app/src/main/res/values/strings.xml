@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">HonsulProject</string>
+    <string name="serverBTN">서버</string>
+    <string name="clientBTN">클라이언트</string>
+    <string name="todo">TODO</string>
+    <string name="ip_edit_server">IP</string>
+    <string name="port_edit_server">Port</string>
+    <string name="ipTXT_server">IP</string>
+    <string name="portTXT_server">Port</string>
+    <string name="serveraddBTN">서버 추가</string>
+    <string name="fullBTN">한잔</string>
+    <string name="halfBTN">반잔</string>
+    <string name="parti">참여자</string>
+    <string name="ipTXT_client">IP</string>
+    <string name="portTXT_client">Port</string>
+    <string name="clientaddBTN">추가</string>
+    <string name="clientaddBTN2">추가</string>
+    <string name="ip_edit_client">IP</string>
+    <string name="port_edit_client">Port</string>
+    <string name="nameTXT_client">이름</string>
+    <string name="name_edit_client">이름</string>
+    <string name="idTXT">아이디</string>
+    <string name="pwdTXT">비밀번호</string>
+    <string name="joinBTN">회원가입</string>
+    <string name="loginBTN">로그인</string>
+    <string name="joinokBTN">가입</string>
+    <string name="joincancelBTN">취소</string>
+    <string name="joinnameEDIT">이름</string>
+    <string name="joinidEDIT">아이디</string>
+    <string name="joinpwdEDIT">비밀번호</string>
+    <string name="joinpwdokEDIT">비밀번호 확인</string>
+    <string name="newBTN">방 생성</string>
+    <string name="enterBTN">입장</string>
+
+</resources>
