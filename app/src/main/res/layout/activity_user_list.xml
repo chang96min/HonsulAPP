@@ -7,61 +7,63 @@
     android:orientation="vertical"
     tools:context=".UserListActivity">
 
-    <TextView
-        android:id="@+id/parti_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/parti"
-        android:textSize="24sp" />
+        android:background="#3DC285"
+        app:srcCompat="@drawable/joinuser" />
 
     <ListView
         android:id="@+id/user_listview"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_weight="4">
 
     </ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="15dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/halfBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/halfBTN" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="Button" />
+            android:background="@drawable/hlaf"
+            android:onClick="onClick" />
 
         <Button
             android:id="@+id/fullBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/fullBTN" />
+            android:background="@drawable/oneshot"
+            android:onClick="onClick" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/full"
+            android:onClick="onClick" />
     </LinearLayout>
 
 </LinearLayout>

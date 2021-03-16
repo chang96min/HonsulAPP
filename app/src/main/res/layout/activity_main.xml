@@ -8,54 +8,72 @@
     tools:context=".MainActivity" >
 
     <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#3DC285"
+        app:srcCompat="@drawable/login" />
+
+    <ImageView
         android:id="@+id/logo_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_height="158dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="100dp"
         android:contentDescription="@string/todo"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/mainicon" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/idTXT"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/idTXT" />
+            android:layout_marginStart="15dp"
+            android:layout_weight="2"
+            android:text="@string/idTXT"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/idEDIT"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/idTXT"
+            android:hint="@string/hint"
             android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/pwdTXT"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/pwdTXT" />
+            android:layout_marginStart="15dp"
+            android:layout_weight="2"
+            android:text="@string/pwdTXT"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/pwdEDIT"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/pwdTXT"
+            android:hint="@string/hint"
             android:inputType="textPassword" />
 
     </LinearLayout>
@@ -63,23 +81,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/joinBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
+            android:background="#3DC285"
+            android:backgroundTint="#3DC285"
             android:onClick="onClick"
-            android:text="@string/joinBTN" />
+            android:text="@string/joinBTN"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/loginBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
+            android:background="#3DC285"
+            android:backgroundTint="#3DC285"
             android:onClick="onClick"
-            android:text="@string/loginBTN" />
+            android:text="@string/loginBTN"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

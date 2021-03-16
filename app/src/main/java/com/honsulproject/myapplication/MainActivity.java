@@ -31,40 +31,37 @@ public class MainActivity extends AppCompatActivity {
     private ImageView logo_img;
     private Button joinBTN,loginBTN;
     private EditText idEDIT,pwdEDIT;
+    private String id,pwd,a;
 
     //    firebase
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private FirebaseAuthException auth;
 
-    private ValueEventListener checkRegister = new ValueEventListener() {
+    public ValueEventListener checkRegister = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-            String id=String.valueOf(idEDIT.getText());
-            String pwd=String.valueOf(pwdEDIT.getText());
-            String a = dataSnapshot.child(id).child("userPwd").getValue().toString();
+            id=String.valueOf(idEDIT.getText());
+            pwd=String.valueOf(pwdEDIT.getText());
+            a = String.valueOf(dataSnapshot.child(id).child("userPwd").getValue());
             while (child.hasNext()) {
 //                존재하는 아이디인지 확인
                 if (id.equals(child.next().getKey())) {
 //                    databaseReference.addValueEventListener();
-                    Log.i(TAG,"값 확인"+databaseReference.child(id).child("userPwd"));
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child(id).child("userPwd");
-                    Log.i(TAG,"값 확인"+a);
                     if(pwd.equals(a)){
 //                        비번 확인
-
-                        Log.i(TAG,"로그인 완료");
-                        Intent moveINT = new Intent(MainActivity.this, MainActivity2.class);
-                        moveINT.putExtra("userId",id);
-                        startActivity(moveINT);
+                        Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                        Intent movINT = new Intent(MainActivity.this, MainActivity2.class);
+                        movINT.putExtra("userId",id);
+                        startActivity(movINT);
                         return;
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"비밀번호가 틀렸습니다!",Toast.LENGTH_SHORT).show();
                         return;
                     }
-
 //                    databaseReference.removeEventListener(this);
 //                    return;
                 }
@@ -100,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(joinINT);
         }
         else if (v.getId()==R.id.loginBTN){
-            // 로그인 선택
-            // 만약 idEDIT가 User에 있고, if pwdEDIT가 일치하면
             databaseReference.addListenerForSingleValueEvent(checkRegister);
         }
     }
