@@ -48,7 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
         else if (v.getId()==R.id.enterBTN){
             // 방 입장
             Intent movINT=new Intent(MainActivity2.this,RoomListActivity.class);
-//            movINT.putExtra("userId",userId);
+            movINT.putExtra("userId",userId);
             startActivity(movINT);
 
         }
