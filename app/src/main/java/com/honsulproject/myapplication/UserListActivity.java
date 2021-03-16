@@ -6,24 +6,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Random;
 
 // 방 입장하면 보이는 UserListAct
 
@@ -33,59 +31,54 @@ public class UserListActivity extends AppCompatActivity {
 
     //    variable
     private ListView user_listview;
-    private Button halfBTN, fullBTN;
+    private Button halfBTN, fullBTN,onceBTN;
     private String userId;
     private String roomId;
     private String v;
     private String check;
     private String name;
+    private String clickid="nonclick";
 
     // Adapter
-//    public ArrayList<HashMap<String,String>> arrayList=new ArrayList<>();
-    public ArrayList<String> nameArrayList=new ArrayList<>();
-    public ArrayList<String> arrayList=new ArrayList<>();
-//    public HashMap<String,String> map=new HashMap<>();
-    private ArrayAdapter<String> adapter;
+    public ArrayList<HashMap<String,String>> arrayList=new ArrayList<>();
+    public HashMap<String,String> map=new HashMap<>();
+    private SimpleAdapter adapter;
 
     //    firebase
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
-
     public ValueEventListener findDB = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-            // 임시로 고정해놓은 roomId 값
-            roomId="170";
-            while(child.hasNext()) {
-                v = child.next().getKey();
+            roomId="170"; // 임시로 고정해놓은 roomId 값
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                HashMap<String,String> map=new HashMap<>();
+                v = snapshot.getKey();
                 check = dataSnapshot.child(v).child("roomId").getValue().toString();
                 if (check.equals(roomId)) {
                     name = dataSnapshot.child(v).child("userName").getValue().toString();
-                    nameArrayList.add(name);
-                    arrayList.add(v);
-//                    map.put("name",name);
-//                    map.put("id",v);
-//                    arrayList.add(v);
-                    adapter.add(v);
+                    map.put("name",name);
+                    map.put("id",v);
+                    arrayList.add(map);
                 }
             }
 
             adapter.notifyDataSetChanged();
-
         }
         @Override
         public void onCancelled(DatabaseError databaseError) {
         }
     };
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
-        // DB에서 값 불러옴
-        databaseReference = FirebaseDatabase.getInstance().getReference("User");
+        databaseReference = FirebaseDatabase.getInstance().getReference("User"); // DB에서 값 불러옴
 
         init();
 
@@ -94,33 +87,61 @@ public class UserListActivity extends AppCompatActivity {
         userId=userINT.getStringExtra("userId");
         roomId=userINT.getStringExtra("roomId");
 
-        // List 생성 및 관리 Adapter
-//        adapter=new SimpleAdapter(this,arrayList,
-//                android.R.layout.simple_list_item_2,
-//                new String[]{"name","id"},
-//                new int[]{android.R.id.text1,android.R.id.text2});
+//         List 생성 및 관리 Adapter
+        adapter=new SimpleAdapter(this,arrayList,
+                android.R.layout.simple_list_item_2,
+                new String[]{"name","id"},
+                new int[]{android.R.id.text1,android.R.id.text2});
 
         // DB에서 userlist 불러옴
         databaseReference.addListenerForSingleValueEvent(findDB);
 
-        Log.i(TAG,"불러온 후 값 확인============"+arrayList.size());
+        user_listview.setAdapter(adapter);
+
+        Log.i(TAG,"클릭하기전 리스트뷰 뜸");
+
+        user_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG,"클릭 "+((TextView)view.findViewById(android.R.id.text2)).getText());
+                clickid= String.valueOf(((TextView)view.findViewById(android.R.id.text2)).getText());
+            }
+        });
 
     }
     private void init(){
         user_listview=findViewById(R.id.user_listview);
         halfBTN=findViewById(R.id.halfBTN);
-        fullBTN=findViewById(R.id.fullBTN);
-
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
-        // ListView에 List 설정
-        user_listview.setAdapter(adapter);
+        fullBTN=findViewById(R.id.onceBTN);
+        onceBTN=findViewById(R.id.onceBTN);
     }
     public void onClick(View v){
         if(v.getId()==R.id.halfBTN){
-//            선택한 유저
+            if (clickid!="nonclick"){
+                //            선택한 유저
+                databaseReference.child(clickid).child("value").setValue("H");
+                Toast.makeText(this,"반잔",Toast.LENGTH_SHORT).show();
+                clickid="nonclick";
+                return;
+            }
+            Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
         }
         else if (v.getId()==R.id.fullBTN){
-
+            if (clickid!="nonclick"){
+                databaseReference.child(clickid).child("value").setValue("F");
+                Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
+                clickid="nonclick";
+                return;
+            }
         }
+        else if (v.getId()==R.id.onceBTN){
+            if (clickid!="nonclick"){
+                databaseReference.child(clickid).child("value").setValue("O");
+                Toast.makeText(this,"한잔",Toast.LENGTH_SHORT).show();
+                clickid="nonclick";
+                return;
+            }
+        }
+        Toast.makeText(this,"상대 유저를 선택해주세요!",Toast.LENGTH_SHORT).show();
     }
 }

@@ -44,7 +44,7 @@
             android:onClick="onClick" />
 
         <Button
-            android:id="@+id/fullBTN"
+            android:id="@+id/onceBTN"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -55,7 +55,7 @@
             android:onClick="onClick" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/fullBTN"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
