@@ -52,7 +52,7 @@ public class UserListActivity extends AppCompatActivity {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-            roomId="170"; // 임시로 고정해놓은 roomId 값
+            //roomId="87"; // 임시로 고정해놓은 roomId 값
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 HashMap<String,String> map=new HashMap<>();
                 v = snapshot.getKey();
