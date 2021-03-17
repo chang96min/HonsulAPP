@@ -61,7 +61,7 @@ public class UserListActivity extends AppCompatActivity {
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 HashMap<String,String> map=new HashMap<>();
                 v = snapshot.getKey();
-                check = dataSnapshot.child(v).child("roomId").getValue().toString();
+                check = String.valueOf(dataSnapshot.child(v).child("roomId").getValue());
                 if (userId.equals(v)){
                     continue;
                 }
@@ -160,7 +160,7 @@ public class UserListActivity extends AppCompatActivity {
     private void init(){
         user_listview=findViewById(R.id.user_listview);
         halfBTN=findViewById(R.id.halfBTN);
-        fullBTN=findViewById(R.id.onceBTN);
+        fullBTN=findViewById(R.id.fullBTN);
         onceBTN=findViewById(R.id.onceBTN);
         delroomBTN=findViewById(R.id.delroomBTN);
         exitroomBTN=findViewById(R.id.exitroomBTN);
@@ -200,7 +200,7 @@ public class UserListActivity extends AppCompatActivity {
         //       유저가 방 삭제, 방 나가기 버튼을 눌렀을 때
 
         if (v.getId()==R.id.delroomBTN){
-            // 현재 방의 userId와 intent로 전달받은 userId의 값이 같으면 
+            // 현재 방의 userId와 intent로 전달받은 userId의 값이 같으면
             // dialog로 찐으로 방 삭제할건지 물어보고 방삭제
             databaseReference.addListenerForSingleValueEvent(finduserId);
             Log.i(TAG,"gg"+curRoomuserID);

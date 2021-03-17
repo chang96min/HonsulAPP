@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -163,8 +164,9 @@ public class RoomListActivity extends AppCompatActivity {
     }
     public void dialog(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("비밀번호 입력").setMessage("방 비번 입력하셈");
+        builder.setTitle("비밀번호 입력").setMessage("입장하려는 방의 비밀번호를 입력하세요!");
         final EditText et = new EditText(this);
+        et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         builder.setView(et);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
             @Override
