@@ -119,6 +119,7 @@ public class UserListActivity extends AppCompatActivity {
         // DB에서 userlist 불러옴
             databaseReference.addListenerForSingleValueEvent(findDB);
 
+        // userlist 갱신하기 위해서 필요
         FirebaseDatabase.getInstance().getReference("User").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -147,8 +148,6 @@ public class UserListActivity extends AppCompatActivity {
                 Log.d("MainActivity", "ChildEventListener - onCancelled" + databaseError.getMessage());
             }
         });
-
-//        adapter.notifyDataSetChanged();
 
         user_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

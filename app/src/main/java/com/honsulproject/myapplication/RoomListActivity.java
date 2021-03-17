@@ -15,6 +15,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,7 +56,7 @@ public class RoomListActivity extends AppCompatActivity {
                 map.put("roomName",roomName);
                 map.put("roomId",roomId);
                 arrayList.add(map);
-                adapter.notifyDataSetChanged();
+                room_listview.setAdapter(adapter);
             }
         }
         @Override
@@ -113,9 +114,40 @@ public class RoomListActivity extends AppCompatActivity {
         // DB에서 userlist 불러옴
         databaseReference.addListenerForSingleValueEvent(findRoom);
 
-        room_listview.setAdapter(adapter);
+//        room_listview.setAdapter(adapter);
 
-        Log.i(TAG,"클릭하기전 리스트뷰 뜸");
+        // Roomlist 갱신하기 위해서 필요
+        FirebaseDatabase.getInstance().getReference("Room").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d("RoomListActivity", "ChildEventListener - onChildAdded : " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d("RoomListActivity", "ChildEventListener - onChildChanged : " + s);
+                arrayList.clear();
+                databaseReference.addListenerForSingleValueEvent(findRoom);
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d("RoomListActivity", "ChildEventListener - onChildRemoved : " + dataSnapshot.getKey());
+                arrayList.clear();
+                databaseReference.addListenerForSingleValueEvent(findRoom);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.d("RoomListActivity", "ChildEventListener - onChildMoved" + s);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("MainActivity", "ChildEventListener - onCancelled" + databaseError.getMessage());
+            }
+        });
 
         room_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
