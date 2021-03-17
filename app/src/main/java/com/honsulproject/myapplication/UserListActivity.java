@@ -1,18 +1,22 @@
 package com.honsulproject.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,8 +35,8 @@ public class UserListActivity extends AppCompatActivity {
 
     //    variable
     private ListView user_listview;
-    private Button halfBTN, fullBTN,onceBTN;
-    private String userId;
+    private Button halfBTN, fullBTN,onceBTN,exitroomBTN,delroomBTN;
+    private String userId,curRoomuserID;
     private String roomId;
     private String v;
     private String check;
@@ -47,7 +51,11 @@ public class UserListActivity extends AppCompatActivity {
     //    firebase
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private DatabaseReference databaseReference_room=firebaseDatabase.getReference();
 
+    databaseReference.child(userID).addChildEventListener(new ChildEventListener(){
+
+    });
     public ValueEventListener findDB = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,10 +75,10 @@ public class UserListActivity extends AppCompatActivity {
                         map.put("name",name);
                         map.put("id",v);
                         arrayList.add(map);
+                        user_listview.setAdapter(adapter);
                     }
                 }
             }
-
             adapter.notifyDataSetChanged();
         }
         @Override
@@ -78,11 +86,25 @@ public class UserListActivity extends AppCompatActivity {
         }
     };
 
+    //    현재 들어온 room의 userId 찾기
+    public ValueEventListener finduserId = new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+        curRoomuserID= String.valueOf(dataSnapshot.child(roomId).child("userId").getValue());
+        Log.i(TAG,"gg"+curRoomuserID);
+    }
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+    }
+};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
         databaseReference = FirebaseDatabase.getInstance().getReference("User"); // DB에서 값 불러옴
+        databaseReference_room = FirebaseDatabase.getInstance().getReference("Room"); // DB에서 값 불러옴
 
         init();
 
@@ -98,16 +120,14 @@ public class UserListActivity extends AppCompatActivity {
                 new int[]{android.R.id.text1,android.R.id.text2});
 
         // DB에서 userlist 불러옴
-        databaseReference.addListenerForSingleValueEvent(findDB);
+            databaseReference.addListenerForSingleValueEvent(findDB);
 
-        user_listview.setAdapter(adapter);
 
-        Log.i(TAG,"클릭하기전 리스트뷰 뜸");
+//        adapter.notifyDataSetChanged();
 
         user_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(TAG,"클릭 "+((TextView)view.findViewById(android.R.id.text2)).getText());
                 clickid= String.valueOf(((TextView)view.findViewById(android.R.id.text2)).getText());
             }
         });
@@ -118,8 +138,13 @@ public class UserListActivity extends AppCompatActivity {
         halfBTN=findViewById(R.id.halfBTN);
         fullBTN=findViewById(R.id.onceBTN);
         onceBTN=findViewById(R.id.onceBTN);
+        delroomBTN=findViewById(R.id.delroomBTN);
+        exitroomBTN=findViewById(R.id.exitroomBTN);
     }
     public void onClick(View v){
+
+        //       유저를 선택하고, 술 전달
+
         if(v.getId()==R.id.halfBTN){
             if (clickid!="nonclick"){
                 //            선택한 유저
@@ -130,7 +155,7 @@ public class UserListActivity extends AppCompatActivity {
             }
             Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
         }
-        else if (v.getId()==R.id.fullBTN){
+        if (v.getId()==R.id.fullBTN){
             if (clickid!="nonclick"){
                 databaseReference.child(clickid).child("value").setValue("F");
                 Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
@@ -138,7 +163,7 @@ public class UserListActivity extends AppCompatActivity {
                 return;
             }
         }
-        else if (v.getId()==R.id.onceBTN){
+        if (v.getId()==R.id.onceBTN){
             if (clickid!="nonclick"){
                 databaseReference.child(clickid).child("value").setValue("O");
                 Toast.makeText(this,"한잔",Toast.LENGTH_SHORT).show();
@@ -147,5 +172,68 @@ public class UserListActivity extends AppCompatActivity {
             }
         }
         Toast.makeText(this,"상대 유저를 선택해주세요!",Toast.LENGTH_SHORT).show();
+
+        //       유저가 방 삭제, 방 나가기 버튼을 눌렀을 때
+
+        if (v.getId()==R.id.delroomBTN){
+            // 현재 방의 userId와 intent로 전달받은 userId의 값이 같으면 
+            // dialog로 찐으로 방 삭제할건지 물어보고 방삭제
+            databaseReference.addListenerForSingleValueEvent(finduserId);
+            Log.i(TAG,"gg"+curRoomuserID);
+//            if (curRoomuserID.equals(userId)){
+//                dialog_delroom();
+//            }
+
+        }
+        if (v.getId()==R.id.exitroomBTN){
+            // 현재 방의 userId와 intent로 전달받은 userId의 값이 다르면 (같으면 방 삭제를 눌러달라고 토스트ㄱㄱ)
+            // dialog로 찐으로 방 나갈건지 물어보고, 방 나가고 해당 userId의 roomId를 "" 로 바꿈
+            dialog_exitroom();
+        }
+    }
+    public void dialog_delroom(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("방 삭제 확인").setMessage("방을 삭제하시겠습니까?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                //삭제 코드
+                databaseReference_room.child(roomId).setValue(null);
+                // 유저의 roomId가 현재 roomId와 같은 사람의 roomId는 "" 로 만듬
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            { //취소 버튼
+                
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    public void dialog_exitroom(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("방 나가기").setMessage("방을 나가시겠습니까?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                //해당 userId의 roomId를 "" 로 바꿈
+                databaseReference.child(userId).child("roomId").setValue("");
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            { //취소 버튼
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

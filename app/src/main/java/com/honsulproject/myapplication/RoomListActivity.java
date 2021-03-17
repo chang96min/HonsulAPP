@@ -55,9 +55,8 @@ public class RoomListActivity extends AppCompatActivity {
                 map.put("roomName",roomName);
                 map.put("roomId",roomId);
                 arrayList.add(map);
+                adapter.notifyDataSetChanged();
             }
-
-            adapter.notifyDataSetChanged();
         }
         @Override
         public void onCancelled(DatabaseError databaseError) {
