@@ -53,9 +53,6 @@ public class UserListActivity extends AppCompatActivity {
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private DatabaseReference databaseReference_room=firebaseDatabase.getReference();
 
-    databaseReference.child(userID).addChildEventListener(new ChildEventListener(){
-
-    });
     public ValueEventListener findDB = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -79,7 +76,7 @@ public class UserListActivity extends AppCompatActivity {
                     }
                 }
             }
-            adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
         }
         @Override
         public void onCancelled(DatabaseError databaseError) {
@@ -122,6 +119,34 @@ public class UserListActivity extends AppCompatActivity {
         // DB에서 userlist 불러옴
             databaseReference.addListenerForSingleValueEvent(findDB);
 
+        FirebaseDatabase.getInstance().getReference("User").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d("MainActivity", "ChildEventListener - onChildAdded : " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d("MainActivity", "ChildEventListener - onChildChanged : " + s);
+                arrayList.clear();
+                databaseReference.addListenerForSingleValueEvent(findDB);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d("MainActivity", "ChildEventListener - onChildRemoved : " + dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.d("MainActivity", "ChildEventListener - onChildMoved" + s);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("MainActivity", "ChildEventListener - onCancelled" + databaseError.getMessage());
+            }
+        });
 
 //        adapter.notifyDataSetChanged();
 
