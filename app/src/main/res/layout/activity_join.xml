@@ -18,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -26,27 +26,28 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="2"
             android:gravity="center|start"
             android:text="@string/name"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/joinnameEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/hint"
+            android:hint="@string/joinnameEDIT"
             android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -54,27 +55,28 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="2"
             android:gravity="center|start"
             android:text="@string/idTXT"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/joinidEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/hint"
+            android:hint="@string/joinidEDIT"
             android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -82,20 +84,21 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="2"
             android:gravity="center|start"
             android:text="@string/pwdTXT"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/joinpwdEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/hint"
+            android:hint="@string/joinpwdEDIT"
             android:inputType="textPassword" />
 
     </LinearLayout>
@@ -103,7 +106,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -111,7 +114,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="2"
             android:gravity="center|start"
             android:text="@string/check"
@@ -121,10 +124,11 @@
             android:id="@+id/joinpwdokEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/hint"
+            android:hint="@string/joinpwdokEDIT"
             android:inputType="textPassword" />
     </LinearLayout>
 
@@ -146,7 +150,7 @@
             android:onClick="onClick"
             android:text="@string/joinokBTN"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
@@ -159,7 +163,7 @@
             android:onClick="onClick"
             android:text="@string/joincancelBTN"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

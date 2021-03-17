@@ -28,11 +28,13 @@
     <string name="joinnameEDIT">이름</string>
     <string name="joinidEDIT">아이디</string>
     <string name="joinpwdEDIT">비밀번호</string>
-    <string name="joinpwdokEDIT">비밀번호 확인</string>
+    <string name="joinpwdokEDIT">PW 확인</string>
     <string name="hint">입력해주세요</string>
     <string name="name">NAME</string>
-    <string name="check">비밀번호확인</string>
+    <string name="check">PW 확인</string>
     <string name="roomname">방이름</string>
     <string name="addroom">생성</string>
+    <string name="mainid">아이디</string>
+    <string name="mainpwd">비밀번호</string>
 
 </resources>
