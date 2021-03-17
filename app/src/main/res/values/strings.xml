@@ -38,5 +38,6 @@
     <string name="mainpwd">비밀번호</string>
     <string name="delroomBTN">방 삭제</string>
     <string name="exitroomBTN">방 나오기</string>
+    <string name="bluetoothBTN">블루투스</string>
 
 </resources>

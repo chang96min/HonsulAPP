@@ -23,11 +23,19 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bluetoothBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="150dp"
+            android:layout_weight="1"
+            android:text="@string/bluetoothBTN" />
+
+        <Button
             android:id="@+id/delroomBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginLeft="200dp"
             android:layout_weight="1"
             android:onClick="onClick"
             android:text="@string/delroomBTN" />
