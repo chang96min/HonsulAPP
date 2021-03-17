@@ -57,11 +57,17 @@ public class UserListActivity extends AppCompatActivity {
                 HashMap<String,String> map=new HashMap<>();
                 v = snapshot.getKey();
                 check = dataSnapshot.child(v).child("roomId").getValue().toString();
-                if (check.equals(roomId)) {
-                    name = dataSnapshot.child(v).child("userName").getValue().toString();
-                    map.put("name",name);
-                    map.put("id",v);
-                    arrayList.add(map);
+                if (userId.equals(v)){
+                    continue;
+                }
+                // 자신이 입장한 방 userlist에 자신은 리스트에 보여지지 않음!
+                else{
+                    if (check.equals(roomId)) {
+                        name = dataSnapshot.child(v).child("userName").getValue().toString();
+                        map.put("name",name);
+                        map.put("id",v);
+                        arrayList.add(map);
+                    }
                 }
             }
 

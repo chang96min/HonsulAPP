@@ -106,8 +106,8 @@ public class JoinActivity extends AppCompatActivity {
     {
         databaseReference.child(joinidEDIT.getText().toString()).child("userName").setValue(joinnameEDIT.getText().toString());
         databaseReference.child(joinidEDIT.getText().toString()).child("userPwd").setValue(joinpwdEDIT.getText().toString());
-        databaseReference.child(joinidEDIT.getText().toString()).child("roomId").setValue("0");
-        databaseReference.child(joinidEDIT.getText().toString()).child("value").setValue("0");
+        databaseReference.child(joinidEDIT.getText().toString()).child("roomId").setValue("");
+        databaseReference.child(joinidEDIT.getText().toString()).child("value").setValue("");
         Toast.makeText(getApplicationContext(), "가입 완료", Toast.LENGTH_SHORT).show();
     }
 }

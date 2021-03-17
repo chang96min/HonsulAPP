@@ -41,6 +41,7 @@ public class RoomListActivity extends AppCompatActivity {
     //    firebase
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private DatabaseReference databaseReference_user=firebaseDatabase.getReference();
 
     // 방 리스트 불러오는
     public ValueEventListener findRoom = new ValueEventListener() {
@@ -77,6 +78,8 @@ public class RoomListActivity extends AppCompatActivity {
                 movINT.putExtra("userId",userId);
                 movINT.putExtra("roomId",clickroomId);
                 startActivity(movINT);
+                // user의 roomId 정보 바꿈
+                databaseReference_user.child(userId).child("roomId").setValue(clickroomId);
                 return;
             }
             else{
@@ -95,6 +98,7 @@ public class RoomListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list);
         databaseReference = FirebaseDatabase.getInstance().getReference("Room"); // DB에서 값 불러옴
+        databaseReference_user = FirebaseDatabase.getInstance().getReference("User"); // DB에서 값 불러옴
         init();
 
         // Intent로 넘어온 userId, roomId 값
