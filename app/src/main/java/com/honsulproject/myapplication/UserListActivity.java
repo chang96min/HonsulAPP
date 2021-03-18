@@ -40,7 +40,7 @@ public class UserListActivity extends AppCompatActivity {
     private String userId,curRoomuserID;
     private String roomId;
     private String v;
-    private String check;
+    private String check,check2,flag;
     private String name;
     private String clickid="nonclick";
 
@@ -92,7 +92,60 @@ public class UserListActivity extends AppCompatActivity {
     public void onDataChange(DataSnapshot dataSnapshot) {
         Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
         curRoomuserID= String.valueOf(dataSnapshot.child(roomId).child("userId").getValue());
-        Log.i(TAG,"gg"+curRoomuserID);
+        Log.i(TAG,"finduserId 안에서 실행되는 "+curRoomuserID);
+        if (curRoomuserID.equals(userId)){
+            dialog_delroom();
+            Log.i(TAG,"방 삭제 다이얼로그 실행됨");
+        }
+        else{
+            Toast.makeText(UserListActivity.this, "방장만 방을 삭제할 수 있음", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+    }
+};
+
+//    방 삭제할 때
+public ValueEventListener delroom = new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        Log.i(TAG,"방 삭제 메소드 실행됨");
+        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            HashMap<String,String> map=new HashMap<>();
+            v = snapshot.getKey();
+            check = String.valueOf(dataSnapshot.child(v).child("roomId").getValue());
+            Log.i(TAG,"check "+check);
+            if (check.equals(roomId)) {
+                databaseReference.child(v).child("roomId").setValue(" ");
+                databaseReference.child(v).child("flag").setValue("T");
+                Log.i(TAG, "roomID null로");
+            }
+            else{
+                continue;
+            }
+            databaseReference_room.child(roomId).setValue(null);
+            Log.i(TAG, "방 삭제 완료");
+        }
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            HashMap<String,String> map=new HashMap<>();
+            v = snapshot.getKey();
+            check2 = String.valueOf(dataSnapshot.child(v).child("roomId").getValue());
+            flag = String.valueOf(dataSnapshot.child(v).child("flag").getValue());
+            Log.i(TAG, "check2 " + check2+"flag "+flag);
+            finish();
+            databaseReference.child(userId).child("flag").setValue(null);
+            if (flag.equals("T") && check2.equals(" ")){
+                Log.i(TAG,"화면전환");
+                finish();
+                databaseReference.child(v).child("flag").setValue(null);
+//                Intent movINT=new Intent(UserListActivity.this,RoomListActivity.class);
+//                movINT.putExtra("userId",userId);
+//                startActivity(movINT);
+            }
+        }
     }
     @Override
     public void onCancelled(DatabaseError databaseError) {
@@ -212,6 +265,9 @@ public class UserListActivity extends AppCompatActivity {
                 clickid="nonclick";
                 return;
             }
+            else{
+                Toast.makeText(this,"상대 유저를 선택해주세요!",Toast.LENGTH_SHORT).show();
+            }
             Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
         }
         else if (v.getId()==R.id.fullBTN){
@@ -221,6 +277,9 @@ public class UserListActivity extends AppCompatActivity {
                 clickid="nonclick";
                 return;
             }
+            else{
+                Toast.makeText(this,"상대 유저를 선택해주세요!",Toast.LENGTH_SHORT).show();
+            }
         }
         else if (v.getId()==R.id.onceBTN){
             if (clickid!="nonclick"){
@@ -229,18 +288,23 @@ public class UserListActivity extends AppCompatActivity {
                 clickid="nonclick";
                 return;
             }
+            else{
+                Toast.makeText(this,"상대 유저를 선택해주세요!",Toast.LENGTH_SHORT).show();
+            }
         }
-        Toast.makeText(this,"상대 유저를 선택해주세요!",Toast.LENGTH_SHORT).show();
 
         //       유저가 방 삭제, 방 나가기 버튼을 눌렀을 때
 
         if (v.getId()==R.id.delroomBTN){
             // 현재 방의 userId와 intent로 전달받은 userId의 값이 같으면
             // dialog로 찐으로 방 삭제할건지 물어보고 방삭제
-            databaseReference.addListenerForSingleValueEvent(finduserId);
-            Log.i(TAG,"gg"+curRoomuserID);
+            databaseReference_room.addListenerForSingleValueEvent(finduserId);
+
 //            if (curRoomuserID.equals(userId)){
 //                dialog_delroom();
+//            }
+//            else{
+//                Toast.makeText(this, "방장만 방을 삭제할 수 ", Toast.LENGTH_SHORT).show();
 //            }
 
         }
@@ -258,8 +322,7 @@ public class UserListActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id)
             {
                 //삭제 코드
-                databaseReference_room.child(roomId).setValue(null);
-                // 유저의 roomId가 현재 roomId와 같은 사람의 roomId는 "" 로 만듬
+                databaseReference.addListenerForSingleValueEvent(delroom);
             }
         });
 
