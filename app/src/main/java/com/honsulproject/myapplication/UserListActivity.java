@@ -272,6 +272,7 @@ public ValueEventListener delroom = new ValueEventListener() {
         if(v.getId()==R.id.halfBTN){
             if (clickid!="nonclick"){
                 //            선택한 유저
+                databaseReference.child(clickid).child("value").setValue("");
                 databaseReference.child(clickid).child("value").setValue("H");
                 Toast.makeText(this,"반잔",Toast.LENGTH_SHORT).show();
                 clickid="nonclick";
@@ -284,6 +285,7 @@ public ValueEventListener delroom = new ValueEventListener() {
         }
         else if (v.getId()==R.id.fullBTN){
             if (clickid!="nonclick"){
+                databaseReference.child(clickid).child("value").setValue("");
                 databaseReference.child(clickid).child("value").setValue("F");
                 Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
                 clickid="nonclick";
@@ -295,6 +297,7 @@ public ValueEventListener delroom = new ValueEventListener() {
         }
         else if (v.getId()==R.id.onceBTN){
             if (clickid!="nonclick"){
+                databaseReference.child(clickid).child("value").setValue("");
                 databaseReference.child(clickid).child("value").setValue("O");
                 Toast.makeText(this,"한잔",Toast.LENGTH_SHORT).show();
                 clickid="nonclick";
@@ -311,13 +314,6 @@ public ValueEventListener delroom = new ValueEventListener() {
             // 현재 방의 userId와 intent로 전달받은 userId의 값이 같으면
             // dialog로 찐으로 방 삭제할건지 물어보고 방삭제
             databaseReference_room.addListenerForSingleValueEvent(finduserId);
-
-//            if (curRoomuserID.equals(userId)){
-//                dialog_delroom();
-//            }
-//            else{
-//                Toast.makeText(this, "방장만 방을 삭제할 수 ", Toast.LENGTH_SHORT).show();
-//            }
 
         }
         if (v.getId()==R.id.exitroomBTN){
