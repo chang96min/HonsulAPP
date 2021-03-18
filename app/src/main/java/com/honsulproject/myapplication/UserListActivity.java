@@ -207,7 +207,7 @@ public ValueEventListener delroom = new ValueEventListener() {
                 Log.i(TAG,dataSnapshot.getValue().toString());
                 String ChangeKey = dataSnapshot.getKey();
                 HashMap<String,Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
-                String value = map.get("value").toString();
+                String value = String.valueOf(map.get("value"));
                 if (userId.equals(ChangeKey)){
                     switch (value) {
                         case "F" :

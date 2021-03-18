@@ -168,7 +168,15 @@ public class RoomListActivity extends AppCompatActivity {
         final EditText et = new EditText(this);
         et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         builder.setView(et);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            { //취소 버튼
+            }
+        });
+
+        builder.setNegativeButton("OK", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int id)
             { //비밀번호 확인 버튼
@@ -176,13 +184,6 @@ public class RoomListActivity extends AppCompatActivity {
                 pwdEDIT=String.valueOf(et.getText());
                 databaseReference.addListenerForSingleValueEvent(findPwd);
                 //비밀번호가 선택한 방의 아이디에 있는 비번과 같다면~
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int id)
-            { //취소 버튼
             }
         });
         AlertDialog alertDialog = builder.create();
