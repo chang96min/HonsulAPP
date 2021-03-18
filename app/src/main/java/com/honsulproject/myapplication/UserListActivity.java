@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -36,7 +37,8 @@ public class UserListActivity extends AppCompatActivity {
 
     //    variable
     private ListView user_listview;
-    private Button halfBTN, fullBTN,onceBTN,exitroomBTN,delroomBTN;
+    private Button halfBTN, fullBTN,onceBTN,delroomBTN;
+    private ImageButton exitroomBTN,bluetoothBTN;
     private String userId,curRoomuserID;
     private String roomId;
     private String v;
@@ -280,6 +282,7 @@ public ValueEventListener delroom = new ValueEventListener() {
         onceBTN=findViewById(R.id.onceBTN);
         delroomBTN=findViewById(R.id.delroomBTN);
         exitroomBTN=findViewById(R.id.exitroomBTN);
+        bluetoothBTN=findViewById(R.id.bluetoothBTN);
     }
 
     public void onBTClick (View v) {
