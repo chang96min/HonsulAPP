@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -55,6 +56,9 @@ public class AddRoomActivity extends AppCompatActivity {
         addroomBTN=findViewById(R.id.addroomBTN);
         cancelroomBTN=findViewById(R.id.cancelroomBTN);
 
+        roomnameEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+        roompwdEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+
     }
     public void onClick(View v){
         if(v.getId()==R.id.addroomBTN){
@@ -65,6 +69,9 @@ public class AddRoomActivity extends AppCompatActivity {
                 movINT.putExtra("userId",userId);
                 movINT.putExtra("roomId",roomId);
                 startActivity(movINT);
+                roomnameEDIT.setText("");
+                roompwdEDIT.setText("");
+
             }
                  else {
                     Toast.makeText(this,"입력해주세요",Toast.LENGTH_SHORT).show();

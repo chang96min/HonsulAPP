@@ -4,14 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuthException;
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private FirebaseAuthException auth;
 
+
     public ValueEventListener checkRegister = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -50,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
             while (child.hasNext()) {
 //                존재하는 아이디인지 확인
                 if (id.equals(child.next().getKey())) {
-//                    databaseReference.addValueEventListener();
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child(id).child("userPwd");
                     if(pwd.equals(a)){
 //                        비번 확인
@@ -58,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
                         Intent movINT = new Intent(MainActivity.this, MainActivity2.class);
                         movINT.putExtra("userId",id);
                         startActivity(movINT);
+                        idEDIT.setText("");
+                        pwdEDIT.setText("");
                         return;
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"비밀번호가 틀렸습니다!",Toast.LENGTH_SHORT).show();
                         return;
                     }
-//                    databaseReference.removeEventListener(this);
-//                    return;
                 }
             }
             Toast.makeText(getApplicationContext(),"존재하지 않는 아이디입니다!",Toast.LENGTH_SHORT).show();
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
+
         databaseReference = FirebaseDatabase.getInstance().getReference("User");
     }
     // 변수 초기화
@@ -90,6 +96,17 @@ public class MainActivity extends AppCompatActivity {
         joinBTN=findViewById(R.id.joinBTN);
         idEDIT=findViewById(R.id.idEDIT);
         pwdEDIT=findViewById(R.id.pwdEDIT);
+
+        idEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+        pwdEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+//        pwdEDIT.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_DONE)
+//                    loginBTN.performClick(); // searchBtn 이란 Button 누르는 동작 실행
+//                return false;
+//            }
+//        });
     }
     // 버튼 선택
     public void onClick(View v){

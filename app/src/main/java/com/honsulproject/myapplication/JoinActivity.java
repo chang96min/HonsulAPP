@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -76,6 +77,12 @@ public class JoinActivity extends AppCompatActivity {
         joinidEDIT=findViewById(R.id.joinidEDIT);
         joinpwdEDIT=findViewById(R.id.joinpwdEDIT);
         joinpwdokEDIT=findViewById(R.id.joinpwdokEDIT);
+
+        joinnameEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+        joinidEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+        joinpwdEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+        joinpwdokEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
+
     }
     // 버튼 선택
     public void onClick(View v){
@@ -86,10 +93,8 @@ public class JoinActivity extends AppCompatActivity {
                     databaseReference.addListenerForSingleValueEvent(checkRegister);
                     Log.i(TAG, "db 추가");
                     finish();
-//                Intent joinINT=new Intent(JoinActivity.this,MainActivity.class);
-//                startActivity(joinINT);
+
                 } else {
-//                    Log.i(TAG, "비번 다름" + joinpwdEDIT.getText().toString() + "," + joinpwdokEDIT.getText().toString());
                     Toast.makeText(this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_LONG).show();
                     joinpwdokEDIT.setText("");
                 }
@@ -111,5 +116,9 @@ public class JoinActivity extends AppCompatActivity {
         databaseReference.child(joinidEDIT.getText().toString()).child("roomId").setValue("");
         databaseReference.child(joinidEDIT.getText().toString()).child("value").setValue("");
         Toast.makeText(getApplicationContext(), "가입 완료", Toast.LENGTH_SHORT).show();
+        joinnameEDIT.setText("");
+        joinidEDIT.setText("");
+        joinpwdEDIT.setText("");
+        joinpwdokEDIT.setText("");
     }
 }
