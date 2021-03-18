@@ -104,7 +104,7 @@ public class BT_Activity extends AppCompatActivity {
                 }
 
                 if (flag) {
-                    Toast.makeText(BT_Activity.this, "Bluetooth 연결 성공!",Toast.LENGTH_SHORT);
+                    Toast.makeText(BT_Activity.this, "Bluetooth 연결 성공!",Toast.LENGTH_SHORT).show();
                     Util.connectedThread = new ConnectedThread(btSocket);
                     Util.connectedThread.start();
                     finish();

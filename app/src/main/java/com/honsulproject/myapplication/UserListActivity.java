@@ -64,7 +64,10 @@ public class UserListActivity extends AppCompatActivity {
         public void onDataChange(DataSnapshot dataSnapshot) {
             Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
             //roomId="87"; // 임시로 고정해놓은 roomId 값
+            Log.i(TAG,"findDB");
+            arrayList.clear();
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                Log.i(TAG,"findDB - for");
                 HashMap<String,String> map=new HashMap<>();
                 v = snapshot.getKey();
                 check = String.valueOf(dataSnapshot.child(v).child("roomId").getValue());
@@ -78,11 +81,12 @@ public class UserListActivity extends AppCompatActivity {
                         map.put("name",name);
                         map.put("id",v);
                         arrayList.add(map);
+                        Log.i(TAG,"findDB - add");
                         user_listview.setAdapter(adapter);
                     }
                 }
             }
-//            adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         }
         @Override
         public void onCancelled(DatabaseError databaseError) {
@@ -211,13 +215,17 @@ public ValueEventListener delroom = new ValueEventListener() {
                         case "O" :
                             Log.i(TAG,"signal : " + value);
                             Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
-                            Util.connectedThread.write(value);
+                            try {
+                                Util.connectedThread.write(value);
+                            }catch (NullPointerException e) {
+                                e.printStackTrace();
+                                Toast.makeText(UserListActivity.this,"블루투스 연결이 필요합니다.",Toast.LENGTH_SHORT).show();
+                            }
                             databaseReference.child(ChangeKey).child("value").setValue("");
                             break;
                         default:break;
                     }
                 }
-                arrayList.clear();
                 databaseReference.addListenerForSingleValueEvent(findDB);
             }
 
