@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +49,11 @@ public class UserListActivity extends AppCompatActivity {
     private String check,check2,flag;
     private String name;
     private String clickid="nonclick";
+
+    // sound
+    public boolean play;
+    public SoundPool soundPool;
+    public SoundManager soundManager;
 
     // Adapter
     public ArrayList<HashMap<String,String>> arrayList=new ArrayList<>();
@@ -215,6 +223,14 @@ public ValueEventListener delroom = new ValueEventListener() {
                         case "O" :
                             Log.i(TAG,"signal : " + value);
                             Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
+                            // 음성 시작
+                            soundPool = new SoundPool.Builder().build();
+                            soundManager = new SoundManager(UserListActivity.this,soundPool);
+                            soundManager.addSound(0,R.raw.sample);
+                            int playSoundId=soundManager.playSound(0);
+                            play = true;
+                            soundManager.pauseSound(0);
+                            play = false;
                             try {
                                 Util.connectedThread.write(value);
                             }catch (NullPointerException e) {
