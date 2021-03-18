@@ -59,7 +59,7 @@
             android:background="#FFFFFF"
             android:onClick="onClick"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/cancel" />
+            app:srcCompat="@drawable/trash" />
 
     </LinearLayout>
 
