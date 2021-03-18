@@ -97,16 +97,19 @@ public class MainActivity extends AppCompatActivity {
         idEDIT=findViewById(R.id.idEDIT);
         pwdEDIT=findViewById(R.id.pwdEDIT);
 
-        idEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
         pwdEDIT.setImeOptions(EditorInfo.IME_ACTION_DONE); // 키보드 확인 버튼 클릭시
-//        pwdEDIT.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_DONE)
-//                    loginBTN.performClick(); // searchBtn 이란 Button 누르는 동작 실행
-//                return false;
-//            }
-//        });
+        idEDIT.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //Enter key Action
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(idEDIT.getWindowToken(), 0);    //hide keyboard
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     // 버튼 선택
     public void onClick(View v){
