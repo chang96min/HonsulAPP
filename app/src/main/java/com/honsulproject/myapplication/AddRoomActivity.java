@@ -37,6 +37,8 @@ public class AddRoomActivity extends AppCompatActivity {
     //    firebase
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private DatabaseReference databaseReference_user = firebaseDatabase.getReference();
+
     private FirebaseAuthException auth;
 
     @Override
@@ -49,6 +51,7 @@ public class AddRoomActivity extends AppCompatActivity {
         userId=userINT.getStringExtra("userId");
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Room");
+        databaseReference_user = FirebaseDatabase.getInstance().getReference("User");
     }
     private void init(){
         roomnameEDIT=findViewById(R.id.roomnameEDIT);
@@ -88,8 +91,7 @@ public class AddRoomActivity extends AppCompatActivity {
         databaseReference.child(roomId).child("roomName").setValue(roomnameEDIT.getText().toString());
         databaseReference.child(roomId).child("roomPwd").setValue(roompwdEDIT.getText().toString());
         databaseReference.child(roomId).child("userId").setValue(userId);
-        databaseReference = FirebaseDatabase.getInstance().getReference("User");
-        databaseReference.child(userId).child("roomId").setValue(roomId);
+        databaseReference_user.child(userId).child("roomId").setValue(roomId);
         Toast.makeText(getApplicationContext(), "방 생성 완료", Toast.LENGTH_SHORT).show();
     }
 }
