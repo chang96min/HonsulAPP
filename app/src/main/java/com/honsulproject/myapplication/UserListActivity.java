@@ -408,6 +408,10 @@ public ValueEventListener delroom = new ValueEventListener() {
         soundPool=new SoundPool(5, AudioManager.STREAM_MUSIC,0);
         int sound=soundPool.load(UserListActivity.this,R.raw.sample,0);
         soundPool.play(sound,1f,1f,0,0,1f);
+        int waitLimit = 10000;
+        int waitCounter = 0;
+        int throttle = 10;
+        while(soundPool.play(sound,1,1,1,0,1)==0&&waitCounter<waitLimit){}
 
     }
 }
