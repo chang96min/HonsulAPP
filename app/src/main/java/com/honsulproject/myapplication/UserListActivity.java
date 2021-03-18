@@ -216,6 +216,7 @@ public ValueEventListener delroom = new ValueEventListener() {
                 }
                 arrayList.clear();
                 databaseReference.addListenerForSingleValueEvent(findDB);
+                databaseReference.addListenerForSingleValueEvent(delroom);
             }
 
             @Override
@@ -241,34 +242,35 @@ public ValueEventListener delroom = new ValueEventListener() {
             }
         });
 
-        // 방 삭제 갱신하기 위해서 필요
-        FirebaseDatabase.getInstance().getReference("Room").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("MainActivity", "ChildEventListener - onChildAdded : " + dataSnapshot.getValue());
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.d("MainActivity", "ChildEventListener - onChildChanged : " + s);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d("MainActivity", "ChildEventListener - onChildRemoved : " + dataSnapshot.getKey());
-                databaseReference.addListenerForSingleValueEvent(delroom);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.d("MainActivity", "ChildEventListener - onChildMoved" + s);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("MainActivity", "ChildEventListener - onCancelled" + databaseError.getMessage());
-            }
-        });
+//        // 방 삭제 갱신하기 위해서 필요
+//        FirebaseDatabase.getInstance().getReference("Room").addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                Log.d("MainActivity", "ChildEventListener - onChildAdded : " + dataSnapshot.getValue());
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//                Log.d("MainActivity", "ChildEventListener - onChildChanged : " + s);
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                Log.d("MainActivity", "ChildEventListener - onChildRemoved : " + dataSnapshot.getKey());
+//                arrayList.clear();
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//                Log.d("MainActivity", "ChildEventListener - onChildMoved" + s);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.d("MainActivity", "ChildEventListener - onCancelled" + databaseError.getMessage());
+//            }
+//        });
 
     }
     private void init(){
