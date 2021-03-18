@@ -67,7 +67,7 @@
             android:backgroundTint="#F6F5F5"
             android:ems="10"
             android:hint="@string/mainpwd"
-            android:inputType="textMultiLine|textNoSuggestions"
+            android:inputType="textPassword"
             android:textAlignment="center"
             android:textSize="14sp"
             android:textStyle="bold" />

@@ -89,8 +89,9 @@ public class JoinActivity extends AppCompatActivity {
 //                Intent joinINT=new Intent(JoinActivity.this,MainActivity.class);
 //                startActivity(joinINT);
                 } else {
-                    Log.i(TAG, "비번 다름" + joinpwdEDIT.getText().toString() + "," + joinpwdokEDIT.getText().toString());
-                    Toast.makeText(this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_SHORT);
+//                    Log.i(TAG, "비번 다름" + joinpwdEDIT.getText().toString() + "," + joinpwdokEDIT.getText().toString());
+                    Toast.makeText(this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_LONG).show();
+                    joinpwdokEDIT.setText("");
                 }
             }
             else{
