@@ -204,27 +204,19 @@ public ValueEventListener delroom = new ValueEventListener() {
                 if (userId.equals(ChangeKey)){
                     switch (value) {
                         case "F" :
-                            Log.i(TAG,"signal : " + value);
-                            Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
-                            Util.connectedThread.write(value);
-                            break;
                         case "H" :
-                            Log.i(TAG,"signal : " + value);
-                            Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
-                            Util.connectedThread.write(value);
-                            break;
                         case "O" :
                             Log.i(TAG,"signal : " + value);
                             Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
                             Util.connectedThread.write(value);
+                            databaseReference.child(ChangeKey).child("value").setValue("");
                             break;
                         default:break;
                     }
                 }
-
                 arrayList.clear();
                 databaseReference.addListenerForSingleValueEvent(findDB);
-                databaseReference.addListenerForSingleValueEvent(del);
+                //databaseReference.addListenerForSingleValueEvent(del);
             }
 
             @Override
@@ -272,7 +264,6 @@ public ValueEventListener delroom = new ValueEventListener() {
         if(v.getId()==R.id.halfBTN){
             if (clickid!="nonclick"){
                 //            선택한 유저
-                databaseReference.child(clickid).child("value").setValue("");
                 databaseReference.child(clickid).child("value").setValue("H");
                 Toast.makeText(this,"반잔",Toast.LENGTH_SHORT).show();
                 clickid="nonclick";
@@ -285,7 +276,6 @@ public ValueEventListener delroom = new ValueEventListener() {
         }
         else if (v.getId()==R.id.fullBTN){
             if (clickid!="nonclick"){
-                databaseReference.child(clickid).child("value").setValue("");
                 databaseReference.child(clickid).child("value").setValue("F");
                 Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
                 clickid="nonclick";
@@ -297,7 +287,6 @@ public ValueEventListener delroom = new ValueEventListener() {
         }
         else if (v.getId()==R.id.onceBTN){
             if (clickid!="nonclick"){
-                databaseReference.child(clickid).child("value").setValue("");
                 databaseReference.child(clickid).child("value").setValue("O");
                 Toast.makeText(this,"한잔",Toast.LENGTH_SHORT).show();
                 clickid="nonclick";
