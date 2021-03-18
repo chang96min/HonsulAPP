@@ -129,28 +129,39 @@ public ValueEventListener delroom = new ValueEventListener() {
             databaseReference_room.child(roomId).setValue(null);
             Log.i(TAG, "방 삭제 완료");
         }
-        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-            HashMap<String,String> map=new HashMap<>();
-            v = snapshot.getKey();
-            check2 = String.valueOf(dataSnapshot.child(v).child("roomId").getValue());
-            flag = String.valueOf(dataSnapshot.child(v).child("flag").getValue());
-            Log.i(TAG, "check2 " + check2+"flag "+flag);
-            finish();
-            databaseReference.child(userId).child("flag").setValue(null);
-            if (flag.equals("T") && check2.equals(" ")){
-                Log.i(TAG,"화면전환");
-                finish();
-                databaseReference.child(v).child("flag").setValue(null);
-//                Intent movINT=new Intent(UserListActivity.this,RoomListActivity.class);
-//                movINT.putExtra("userId",userId);
-//                startActivity(movINT);
-            }
-        }
     }
     @Override
     public void onCancelled(DatabaseError databaseError) {
     }
 };
+
+    //    방 삭제할 때
+    public ValueEventListener del = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            Log.i(TAG,"방 삭제 메소드 실행됨");
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                HashMap<String,String> map=new HashMap<>();
+                v = snapshot.getKey();
+                check2 = String.valueOf(dataSnapshot.child(v).child("roomId").getValue());
+                flag = String.valueOf(dataSnapshot.child(v).child("flag").getValue());
+                Log.i(TAG, "check2 " + check2+"flag "+flag);
+                finish();
+                databaseReference.child(userId).child("flag").setValue(null);
+                if (flag.equals("T") && check2.equals(" ")){
+                    Log.i(TAG,"화면전환");
+                    finish();
+                    databaseReference.child(v).child("flag").setValue(null);
+//                Intent movINT=new Intent(UserListActivity.this,RoomListActivity.class);
+//                movINT.putExtra("userId",userId);
+//                startActivity(movINT);
+                }
+            }
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +224,7 @@ public ValueEventListener delroom = new ValueEventListener() {
 
                 arrayList.clear();
                 databaseReference.addListenerForSingleValueEvent(findDB);
+                databaseReference.addListenerForSingleValueEvent(del);
             }
 
             @Override
