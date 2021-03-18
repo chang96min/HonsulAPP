@@ -29,6 +29,7 @@
             android:layout_gravity="right"
             android:layout_marginLeft="150dp"
             android:layout_weight="1"
+            android:onClick="onBTClick"
             android:text="@string/bluetoothBTN" />
 
         <Button

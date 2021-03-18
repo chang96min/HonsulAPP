@@ -1,5 +1,6 @@
 package com.honsulproject.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,6 +53,8 @@ public class UserListActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private DatabaseReference databaseReference_room=firebaseDatabase.getReference();
+
+
 
     public ValueEventListener findDB = new ValueEventListener() {
         @Override
@@ -129,6 +132,32 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.d("MainActivity", "ChildEventListener - onChildChanged : " + s);
+                Log.i(TAG,dataSnapshot.getKey());
+                Log.i(TAG,dataSnapshot.getValue().toString());
+                String ChangeKey = dataSnapshot.getKey();
+                HashMap<String,Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
+                String value = map.get("value").toString();
+                if (userId.equals(ChangeKey)){
+                    switch (value) {
+                        case "F" :
+                            Log.i(TAG,"signal : " + value);
+                            Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
+                            Util.connectedThread.write(value);
+                            break;
+                        case "H" :
+                            Log.i(TAG,"signal : " + value);
+                            Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
+                            Util.connectedThread.write(value);
+                            break;
+                        case "O" :
+                            Log.i(TAG,"signal : " + value);
+                            Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
+                            Util.connectedThread.write(value);
+                            break;
+                        default:break;
+                    }
+                }
+
                 arrayList.clear();
                 databaseReference.addListenerForSingleValueEvent(findDB);
             }
@@ -153,6 +182,7 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 clickid= String.valueOf(((TextView)view.findViewById(android.R.id.text2)).getText());
+                Log.i(TAG,"clickid : " + clickid);
             }
         });
 
@@ -164,6 +194,11 @@ public class UserListActivity extends AppCompatActivity {
         onceBTN=findViewById(R.id.onceBTN);
         delroomBTN=findViewById(R.id.delroomBTN);
         exitroomBTN=findViewById(R.id.exitroomBTN);
+    }
+
+    public void onBTClick (View v) {
+        Intent intent = new Intent(UserListActivity.this, BT_Activity.class);
+        startActivity(intent);
     }
     public void onClick(View v){
 
@@ -179,7 +214,7 @@ public class UserListActivity extends AppCompatActivity {
             }
             Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
         }
-        if (v.getId()==R.id.fullBTN){
+        else if (v.getId()==R.id.fullBTN){
             if (clickid!="nonclick"){
                 databaseReference.child(clickid).child("value").setValue("F");
                 Toast.makeText(this,"풀잔",Toast.LENGTH_SHORT).show();
@@ -187,7 +222,7 @@ public class UserListActivity extends AppCompatActivity {
                 return;
             }
         }
-        if (v.getId()==R.id.onceBTN){
+        else if (v.getId()==R.id.onceBTN){
             if (clickid!="nonclick"){
                 databaseReference.child(clickid).child("value").setValue("O");
                 Toast.makeText(this,"한잔",Toast.LENGTH_SHORT).show();
