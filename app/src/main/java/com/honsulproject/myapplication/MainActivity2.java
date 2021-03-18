@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +22,7 @@ public class MainActivity2 extends AppCompatActivity {
     private final String TAG="MainActivity2";
 
     //    variable
-    private Button newBTN,enterBTN;
+    private ImageButton newBTN,enterBTN;
     private String userId;
 
     @Override

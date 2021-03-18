@@ -33,11 +33,12 @@
     <string name="name">NAME</string>
     <string name="check">PW 확인</string>
     <string name="roomname">방이름</string>
-    <string name="addroom">생성</string>
+    <string name="addroom">방 생성</string>
     <string name="mainid">아이디</string>
     <string name="mainpwd">비밀번호</string>
     <string name="delroomBTN">방 삭제</string>
     <string name="exitroomBTN">방 나오기</string>
     <string name="bluetoothBTN">블루투스</string>
+    <string name="enterroom">대기실 입장</string>
 
 </resources>

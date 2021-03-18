@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
     //    variable
     private EditText roomnameEDIT,roompwdEDIT;
-    private Button addroomBTN,cancelroomBTN;
+    private ImageButton addroomBTN,cancelroomBTN;
     private String roomId;
     private String userId;
     private Random random=new Random();

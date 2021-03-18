@@ -4,21 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".JoinActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#3DC285"
-        app:srcCompat="@drawable/profile" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_weight="2"
+        android:background="#44B244"
+        android:orientation="horizontal"
+        android:paddingStart="300dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#44B244"
+            app:srcCompat="@drawable/logo" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="#FFFFFF"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -26,28 +39,42 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="2"
+            android:background="#FFFFFF"
             android:gravity="center|start"
             android:text="@string/name"
-            android:textSize="18sp" />
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/joinnameEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:backgroundTint="#F6F5F5"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/joinnameEDIT"
-            android:inputType="textPersonName" />
+            android:hint="@string/hint"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="#FFFFFF"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -55,28 +82,41 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="2"
+            android:background="#FFFFFF"
             android:gravity="center|start"
             android:text="@string/idTXT"
-            android:textSize="18sp" />
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/joinidEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:backgroundTint="#F6F5F5"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/joinidEDIT"
-            android:inputType="textPersonName" />
+            android:hint="@string/hint"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="#FFFFFF"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -84,29 +124,42 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="2"
+            android:background="#FFFFFF"
             android:gravity="center|start"
             android:text="@string/pwdTXT"
-            android:textSize="18sp" />
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/joinpwdEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:backgroundTint="#F6F5F5"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/joinpwdEDIT"
-            android:inputType="textPassword" />
+            android:hint="@string/hint"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="#FFFFFF"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -114,56 +167,107 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="2"
+            android:background="#FFFFFF"
             android:gravity="center|start"
             android:text="@string/check"
-            android:textSize="18sp" />
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/joinpwdokEDIT"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:backgroundTint="#F6F5F5"
             android:ems="10"
             android:gravity="center|start"
-            android:hint="@string/joinpwdokEDIT"
-            android:inputType="textPassword" />
+            android:hint="@string/hint"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="#FFFFFF"
         android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/joinokBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="#3DC285"
-            android:onClick="onClick"
-            android:text="@string/joinokBTN"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/joincancelBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="#3DC285"
-            android:onClick="onClick"
-            android:text="@string/joincancelBTN"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/joinokBTN"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="80dp"
+                android:layout_weight="0.25"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/check" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="@string/joinokBTN"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/joincancelBTN"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="80dp"
+                android:layout_weight="0.25"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/cancel" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="@string/joincancelBTN"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

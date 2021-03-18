@@ -7,13 +7,22 @@
     android:orientation="vertical"
     tools:context=".UserListActivity">
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="20dp"
-        android:background="#3DC285"
-        app:srcCompat="@drawable/joinuser" />
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        android:layout_weight="0.4"
+        android:background="#44B244"
+        android:orientation="horizontal"
+        android:paddingStart="300dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#44B244"
+            app:srcCompat="@drawable/logo" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/room_listview"
@@ -21,6 +30,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="4">
 
     </ListView>

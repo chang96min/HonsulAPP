@@ -2,6 +2,7 @@ package com.honsulproject.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -84,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
     // 변수 초기화
     private void init(){
         logo_img=findViewById(R.id.logo_img);
-        joinBTN=findViewById(R.id.joinBTN);
         loginBTN=findViewById(R.id.loginBTN);
+        joinBTN=findViewById(R.id.joinBTN);
         idEDIT=findViewById(R.id.idEDIT);
         pwdEDIT=findViewById(R.id.pwdEDIT);
     }

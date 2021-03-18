@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class JoinActivity extends AppCompatActivity {
     private final String TAG="JoinActivity";
     
     //    variable
-    private Button joinokBTN,joincancelBTN;
+    private ImageButton joinokBTN,joincancelBTN;
     private EditText joinidEDIT,joinpwdEDIT,joinnameEDIT,joinpwdokEDIT;
 
     //    firebase
