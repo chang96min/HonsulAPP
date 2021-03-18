@@ -39,7 +39,7 @@
             android:layout_gravity="right"
             android:layout_marginLeft="100dp"
             android:background="#FFFFFF"
-            android:onClick="onClick"
+            android:onClick="onBTClick"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/bluetoothicon" />
 
