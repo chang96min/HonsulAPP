@@ -22,20 +22,28 @@
             android:layout_height="70dp"
             android:layout_marginRight="15dp"
             app:srcCompat="@drawable/logo" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:gravity="right"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/roomnameTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/roomnameTXT"
+            android:textSize="24sp" />
 
         <ImageButton
             android:id="@+id/bluetoothBTN"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_gravity="right"
             android:layout_marginLeft="100dp"
             android:background="#FFFFFF"
@@ -43,45 +51,46 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/bluetoothicon" />
 
-        <Button
+        <ImageButton
             android:id="@+id/delroomBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
             android:layout_marginRight="5dp"
             android:background="#FFFFFF"
             android:onClick="onClick"
-            android:text="@string/delroomBTN" />
-
-        <ImageButton
-            android:id="@+id/exitroomBTN"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-            android:background="#FFFFFF"
-            android:onClick="onClick"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/exitroomicon" />
+            app:srcCompat="@drawable/cancel" />
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/user_listview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_weight="0.5"
         android:background="#FFFFFF">
 
     </ListView>
+
+    <ImageButton
+        android:id="@+id/exitroomBTN"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="15dp"
+        android:background="#00FFFFFF"
+        android:onClick="onClick"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/exitroomicon" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1.8"
         android:background="#FFFFFF"
         android:orientation="horizontal">
 

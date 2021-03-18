@@ -40,5 +40,6 @@
     <string name="exitroomBTN">방 나오기</string>
     <string name="bluetoothBTN">블루투스</string>
     <string name="enterroom">대기실 입장</string>
+    <string name="roomnameTXT" />
 
 </resources>

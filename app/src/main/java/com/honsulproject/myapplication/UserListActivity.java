@@ -37,8 +37,9 @@ public class UserListActivity extends AppCompatActivity {
 
     //    variable
     private ListView user_listview;
-    private Button halfBTN, fullBTN,onceBTN,delroomBTN;
-    private ImageButton exitroomBTN,bluetoothBTN;
+    private TextView roomnameTXT;
+    private Button halfBTN, fullBTN,onceBTN;
+    private ImageButton exitroomBTN,bluetoothBTN,delroomBTN;
     private String userId,curRoomuserID;
     private String roomId;
     private String v;
@@ -282,6 +283,7 @@ public ValueEventListener delroom = new ValueEventListener() {
         delroomBTN=findViewById(R.id.delroomBTN);
         exitroomBTN=findViewById(R.id.exitroomBTN);
         bluetoothBTN=findViewById(R.id.bluetoothBTN);
+        roomnameTXT=findViewById(R.id.roomnameTXT);
     }
 
     public void onBTClick (View v) {
