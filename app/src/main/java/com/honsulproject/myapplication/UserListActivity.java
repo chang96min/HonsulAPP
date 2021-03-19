@@ -297,7 +297,6 @@ public ValueEventListener delroom = new ValueEventListener() {
         onceBTN=findViewById(R.id.onceBTN);
         delroomBTN=findViewById(R.id.delroomBTN);
         exitroomBTN=findViewById(R.id.exitroomBTN);
-        bluetoothBTN=findViewById(R.id.bluetoothBTN);
         roomnameTXT=findViewById(R.id.roomnameTXT);
     }
 
