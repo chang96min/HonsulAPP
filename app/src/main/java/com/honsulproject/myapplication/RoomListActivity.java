@@ -35,9 +35,8 @@ public class RoomListActivity extends AppCompatActivity {
     private ListView room_listview;
 
     // Adapter
-    public ArrayList<HashMap<String,String>> arrayList=new ArrayList<>();
-    public HashMap<String,String> map=new HashMap<>();
-    private SimpleAdapter adapter;
+    public ArrayList<RoomData> arrayList = new ArrayList<>();
+    private RoomDataAdapter adapter;
     private String roomId,roomName,userId,clickroomId,pwdEDIT,okroomPwd,i;
 
     //    firebase
@@ -49,14 +48,12 @@ public class RoomListActivity extends AppCompatActivity {
     public ValueEventListener findRoom = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                HashMap<String,String> map=new HashMap<>();
                 roomId = snapshot.getKey();
+                String roomhost = dataSnapshot.child(roomId).child("userId").getValue().toString();
                 roomName = dataSnapshot.child(roomId).child("roomName").getValue().toString();
-                map.put("roomName",roomName);
-                map.put("roomId",roomId);
-                arrayList.add(map);
+
+                arrayList.add(new RoomData(R.drawable.logo, roomName, roomhost));
                 room_listview.setAdapter(adapter);
             }
         }
@@ -107,10 +104,7 @@ public class RoomListActivity extends AppCompatActivity {
         userId=userINT.getStringExtra("userId");
 
 //         List 생성 및 관리 Adapter
-        adapter=new SimpleAdapter(this,arrayList,
-                android.R.layout.simple_list_item_2,
-                new String[]{"roomName","roomId"},
-                new int[]{android.R.id.text1,android.R.id.text2});
+        adapter = new RoomDataAdapter(RoomListActivity.this, R.layout.roomdata_layout,arrayList);
 
         // DB에서 userlist 불러옴
         databaseReference.addListenerForSingleValueEvent(findRoom);
