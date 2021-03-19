@@ -4,35 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#44B244"
     android:orientation="vertical"
     tools:context=".UserListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="right"
-        android:background="#44B244">
+        android:orientation="horizontal"
+        android:paddingStart="300dp">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/logo" />
+
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/room_listview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="4">
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="8"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
 
-    </ListView>
+        <ListView
+            android:id="@+id/room_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp">
+
+        </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/newBTN"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:background="#FFFFFF"
+            android:onClick="onClick"
+            android:scaleType="fitCenter"
+            android:textAlignment="center"
+            app:srcCompat="@drawable/glassplus" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -50,7 +50,7 @@
                 android:onClick="onClick"
                 android:scaleType="fitCenter"
                 android:textAlignment="center"
-                app:srcCompat="@drawable/addroomicon" />
+                app:srcCompat="@drawable/glassplus" />
 
             <TextView
                 android:id="@+id/textView12"

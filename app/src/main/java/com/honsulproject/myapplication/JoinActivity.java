@@ -33,7 +33,7 @@ public class JoinActivity extends AppCompatActivity {
     private final String TAG="JoinActivity";
     
     //    variable
-    private ImageButton joinokBTN,joincancelBTN;
+    private Button joinokBTN,joincancelBTN;
     private EditText joinidEDIT,joinpwdEDIT,joinnameEDIT,joinpwdokEDIT;
 
     //    firebase
