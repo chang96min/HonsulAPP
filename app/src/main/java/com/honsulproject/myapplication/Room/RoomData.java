@@ -1,19 +1,17 @@
-package com.honsulproject.myapplication;
+package com.honsulproject.myapplication.Room;
 
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class RoomData {
     public int RoomIMG_Id;
     public String  RoomTitle;
     public String  Roomhost;
+    public String  RoomId;
 
-
-    public RoomData(int roomIMG_Id, String roomTitle, String roomhost) {
+    public RoomData(int roomIMG_Id, String roomTitle, String roomhost, String roomId) {
         RoomIMG_Id = roomIMG_Id;
         RoomTitle = roomTitle;
         Roomhost = roomhost;
+        RoomId = roomId;
     }
 
     public int getRoomIMG_Id() {
@@ -38,5 +36,13 @@ public class RoomData {
 
     public void setRoomhost(String roomhost) {
         Roomhost = roomhost;
+    }
+
+    public String getRoomId() {
+        return RoomId;
+    }
+
+    public void setRoomId(String roomId) {
+        RoomId = roomId;
     }
 }

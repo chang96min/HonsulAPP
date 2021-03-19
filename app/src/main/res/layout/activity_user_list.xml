@@ -21,6 +21,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginRight="15dp"
+            android:contentDescription="@string/logo"
             app:srcCompat="@drawable/logo" />
 
     </LinearLayout>
@@ -41,14 +42,38 @@
             android:textSize="24sp" />
 
         <ImageButton
+            android:id="@+id/bluetoothBTN"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="100dp"
+            android:background="#FFFFFF"
+            android:contentDescription="@string/bluetoothBTN"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/bluetoothicon" />
+
+        <ImageButton
             android:id="@+id/delroomBTN"
             android:layout_width="30dp"
             android:layout_height="40dp"
             android:layout_marginRight="5dp"
             android:background="#FFFFFF"
+            android:contentDescription="@string/delroomBTN"
             android:onClick="onClick"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/trash" />
+
+        <ImageButton
+            android:id="@+id/exitroomBTN"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:background="#00FFFFFF"
+            android:contentDescription="@string/exitroomBTN"
+            android:onClick="onClick"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/exitroomicon" />
 
     </LinearLayout>
 
@@ -62,17 +87,6 @@
         android:background="#FFFFFF">
 
     </ListView>
-
-    <ImageButton
-        android:id="@+id/exitroomBTN"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="15dp"
-        android:background="#00FFFFFF"
-        android:onClick="onClick"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/exitroomicon" />
 
     <LinearLayout
         android:layout_width="match_parent"

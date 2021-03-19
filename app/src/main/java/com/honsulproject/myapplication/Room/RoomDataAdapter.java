@@ -1,9 +1,8 @@
-package com.honsulproject.myapplication;
+package com.honsulproject.myapplication.Room;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,17 +48,14 @@ public class RoomDataAdapter extends ArrayAdapter<RoomData> {
 
         TextView nameTXTView = holder.Roomlist_name;
         TextView hostTXTView = holder.Roomlist_host;
+        TextView idTXTView = holder.Roomlist_id;
         ImageView imageView = holder.Roomlist_IMG;
 
-        // (3) Layout에 들어갈 Data 준비
         final RoomData item = Datalist.get(position);
 
-        Log.i("TAG", "item" + item.getRoomTitle());
-        Log.i("TAG", "nameTXT : " + nameTXTView);
-
-        // (4) Layout <---> Data 연결
         nameTXTView.setText(item.getRoomTitle());
         hostTXTView.setText(item.getRoomhost());
+        idTXTView.setText(item.getRoomId());
 
 
         // Image 크기를 동일하게 변환

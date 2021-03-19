@@ -1,5 +1,6 @@
 package com.honsulproject.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,20 +13,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.honsulproject.myapplication.Room.RoomData;
+import com.honsulproject.myapplication.Room.RoomDataAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class RoomListActivity extends AppCompatActivity {
     // 로그 확인
@@ -37,7 +40,7 @@ public class RoomListActivity extends AppCompatActivity {
     // Adapter
     public ArrayList<RoomData> arrayList = new ArrayList<>();
     private RoomDataAdapter adapter;
-    private String roomId,roomName,userId,clickroomId,pwdEDIT,okroomPwd,i;
+    private String userId,clickroomId,pwdEDIT,okroomPwd,i;
 
     //    firebase
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -49,11 +52,11 @@ public class RoomListActivity extends AppCompatActivity {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                roomId = snapshot.getKey();
+                String roomId = snapshot.getKey();
                 String roomhost = dataSnapshot.child(roomId).child("userId").getValue().toString();
-                roomName = dataSnapshot.child(roomId).child("roomName").getValue().toString();
+                String roomName = dataSnapshot.child(roomId).child("roomName").getValue().toString();
 
-                arrayList.add(new RoomData(R.drawable.logo, roomName, roomhost));
+                arrayList.add(new RoomData(R.drawable.logo, roomName, roomhost, roomId));
                 room_listview.setAdapter(adapter);
             }
         }
@@ -66,7 +69,6 @@ public class RoomListActivity extends AppCompatActivity {
     public ValueEventListener findPwd = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
             // 클릭한 방의 비번 => okroomPwd
             okroomPwd = String.valueOf(dataSnapshot.child(clickroomId).child("roomPwd").getValue());
             // 비번 맞는지 아닌지 확인
@@ -78,6 +80,23 @@ public class RoomListActivity extends AppCompatActivity {
                 startActivity(movINT);
                 // user의 roomId 정보 바꿈
                 databaseReference_user.child(userId).child("roomId").setValue(clickroomId);
+                databaseReference.child(clickroomId).child("userCnt").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if(!task.isSuccessful()) {
+                            Log.e(TAG, "Error getting data", task.getException());
+                        }
+                        else {
+                            Log.d(TAG,"task - getResult : " + task.getResult().toString());
+                            Log.d(TAG,"Value : " + (long) task.getResult().getValue());
+                            long Cnt = (long) task.getResult().getValue();
+                            Cnt++;
+                            Log.d(TAG, "Cnt : " + Cnt);
+                            databaseReference.child(clickroomId).child("userCnt").setValue(Cnt);
+                            Log.d(TAG,"after Cnt = : " + (long) task.getResult().getValue());
+                        }
+                    }
+                });
                 return;
             }
             else{
@@ -109,7 +128,6 @@ public class RoomListActivity extends AppCompatActivity {
         // DB에서 userlist 불러옴
         databaseReference.addListenerForSingleValueEvent(findRoom);
 
-//        room_listview.setAdapter(adapter);
 
         // Roomlist 갱신하기 위해서 필요
         FirebaseDatabase.getInstance().getReference("Room").addChildEventListener(new ChildEventListener() {
@@ -147,8 +165,8 @@ public class RoomListActivity extends AppCompatActivity {
         room_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(TAG,"클릭 "+((TextView)view.findViewById(android.R.id.text2)).getText());
-                clickroomId= String.valueOf(((TextView)view.findViewById(android.R.id.text2)).getText());
+                clickroomId= ((TextView)view.findViewById(R.id.Roomlist_id)).getText().toString();
+                Log.i(TAG,"clickroomId : " + clickroomId);
                 dialog();
             }
         });
@@ -156,6 +174,7 @@ public class RoomListActivity extends AppCompatActivity {
     private void init(){
         room_listview=findViewById(R.id.room_listview);
     }
+
     public void dialog(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("비밀번호 입력").setMessage("입장하려는 방의 비밀번호를 입력하세요!");

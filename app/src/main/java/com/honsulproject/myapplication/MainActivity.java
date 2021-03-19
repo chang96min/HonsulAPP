@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child(id).child("userPwd");
                     if(pwd.equals(a)){
 //                        비번 확인
-                        Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
                         Intent movINT = new Intent(MainActivity.this, RoomListActivity.class);
                         movINT.putExtra("userId",id);
                         startActivity(movINT);

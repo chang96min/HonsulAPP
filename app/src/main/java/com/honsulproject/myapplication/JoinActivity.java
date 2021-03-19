@@ -67,7 +67,6 @@ public class JoinActivity extends AppCompatActivity {
         init();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("User");
-
     }
     // 변수 초기화
     private void init(){

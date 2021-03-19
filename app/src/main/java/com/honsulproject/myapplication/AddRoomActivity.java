@@ -34,12 +34,11 @@ public class AddRoomActivity extends AppCompatActivity {
     private String userId;
     private Random random=new Random();
 
+
     //    firebase
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private DatabaseReference databaseReference_user = firebaseDatabase.getReference();
-
-    private FirebaseAuthException auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +73,6 @@ public class AddRoomActivity extends AppCompatActivity {
                 startActivity(movINT);
                 roomnameEDIT.setText("");
                 roompwdEDIT.setText("");
-
             }
                  else {
                     Toast.makeText(this,"입력해주세요",Toast.LENGTH_SHORT).show();
@@ -91,6 +89,8 @@ public class AddRoomActivity extends AppCompatActivity {
         databaseReference.child(roomId).child("roomName").setValue(roomnameEDIT.getText().toString());
         databaseReference.child(roomId).child("roomPwd").setValue(roompwdEDIT.getText().toString());
         databaseReference.child(roomId).child("userId").setValue(userId);
+        long Cnt = 1;
+        databaseReference.child(roomId).child("userCnt").setValue(Cnt);
         databaseReference_user.child(userId).child("roomId").setValue(roomId);
         Toast.makeText(getApplicationContext(), "방 생성 완료", Toast.LENGTH_SHORT).show();
     }
