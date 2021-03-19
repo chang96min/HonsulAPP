@@ -189,4 +189,12 @@ public class RoomListActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+    public void onClick(View v) {
+        if (v.getId() == R.id.newBTN) {
+            // 방 생성
+            Intent movINT = new Intent(RoomListActivity.this, AddRoomActivity.class);
+            movINT.putExtra("userId", userId);
+            startActivity(movINT);
+        }
+    }
 }
