@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
         init();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("User");
+
+        Intent intent = new Intent(MainActivity.this, BT_Activity.class);
+        startActivity(intent);
     }
     // 변수 초기화
     private void init(){

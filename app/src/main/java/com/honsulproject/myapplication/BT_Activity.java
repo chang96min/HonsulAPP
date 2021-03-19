@@ -2,7 +2,9 @@ package com.honsulproject.myapplication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -29,12 +31,13 @@ public class BT_Activity extends AppCompatActivity {
 
     // Member Variable
     private static final String TAG = "BT_Activity";
+
+    // 블루투스 허용 상수
     public static final int REQUEST_ENABLE_BT = 1000;
     private final UUID BT_MODULE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     private ListView BT_list;
 
-    //private ArrayList<String> name_data;
     private ArrayList<String> address_data;
     private ArrayAdapter<String> BTArrayAdapter;
 
@@ -49,6 +52,14 @@ public class BT_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_b_t_);
         Log.i(TAG, "onCreate");
 
+        String[] permission_list = {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.BLUETOOTH,
+                Manifest.permission.BLUETOOTH_ADMIN
+        };
+        ActivityCompat.requestPermissions(BT_Activity.this, permission_list, 1);
+
         init();
 
         BTAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -57,8 +68,7 @@ public class BT_Activity extends AppCompatActivity {
             Log.i(TAG, "onCreate - if");
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-        else {
+        } else {
             Log.i(TAG, "onCreate - else");
             SelectBT(); // 페어링된 블루투스 선택 메소드
         }
@@ -72,9 +82,11 @@ public class BT_Activity extends AppCompatActivity {
             // 블루투스를 허용하면 페어링된 블루투스 선택 메소드 호출
             if (resultCode == RESULT_OK) {
                 SelectBT();
-            }
-            else {
+            } else {
                 // 블루투스 허용 안 했을때 코드
+                moveTaskToBack(true);						// 태스크를 백그라운드로 이동
+                finishAndRemoveTask();						// 액티비티 종료 + 태스크 리스트에서 지우기
+                android.os.Process.killProcess(android.os.Process.myPid());
             }
         }
 
@@ -99,19 +111,17 @@ public class BT_Activity extends AppCompatActivity {
                     btSocket.connect();
                 } catch (IOException e) {
                     flag = false;
-                    Toast.makeText(BT_Activity.this,"연결 실패", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BT_Activity.this, "연결 실패", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-
                 if (flag) {
-                    Toast.makeText(BT_Activity.this, "Bluetooth 연결 성공!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BT_Activity.this, "Bluetooth 연결 성공!", Toast.LENGTH_SHORT).show();
                     Util.connectedThread = new ConnectedThread(btSocket);
                     Util.connectedThread.start();
                     finish();
                 }
             }
         });
-
         //name_data = new ArrayList<>();
         BTArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
         address_data = new ArrayList<>();
@@ -123,7 +133,9 @@ public class BT_Activity extends AppCompatActivity {
         Log.i(TAG, "SelectBT");
 
         BTArrayAdapter.clear();
-        if ((address_data!=null) && !address_data.isEmpty()) {address_data.clear();}
+        if ((address_data != null) && !address_data.isEmpty()) {
+            address_data.clear();
+        }
 
         Set<BluetoothDevice> pairedDevices = BTAdapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
@@ -141,14 +153,16 @@ public class BT_Activity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        if(BTAdapter.isDiscovering()){
+        if (BTAdapter.isDiscovering()) {
             BTAdapter.cancelDiscovery();
         } else {
             if (BTAdapter.isEnabled()) {
                 BTAdapter.startDiscovery();
                 BTArrayAdapter.clear();
+                address_data.clear();
                 if (BTArrayAdapter != null && !BTArrayAdapter.isEmpty()) {
                     BTArrayAdapter.clear();
+                    address_data.clear();
                 }
                 IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
                 registerReceiver(receiver, filter);
@@ -166,11 +180,14 @@ public class BT_Activity extends AppCompatActivity {
                 // Discovery has found a device. Get the BluetoothDevice
                 // object and its info from the Intent.
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if (device.getName() == null) return;
+                if (address_data.contains(device.getAddress())) return;
+                Log.d(TAG,"null 찾기 : " +  device.getName() + " - " + device.getAddress());
                 String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
+                String deviceHardwareAddress = device.getAddress();
                 BTArrayAdapter.add(deviceName);
                 address_data.add(deviceHardwareAddress);
-                BTArrayAdapter.notifyDataSetChanged();
+                BTArrayAdapter.notifyDataSetChanged();// MAC address
             }
         }
     };
@@ -192,9 +209,9 @@ public class BT_Activity extends AppCompatActivity {
             final Method m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", UUID.class);
             return (BluetoothSocket) m.invoke(device, BT_MODULE_UUID);
         } catch (Exception e) {
-            Log.e(TAG, "Could not create Insecure RFComm Connection",e);
+            Log.e(TAG, "Could not create Insecure RFComm Connection", e);
         }
-        return  device.createRfcommSocketToServiceRecord(BT_MODULE_UUID);
+        return device.createRfcommSocketToServiceRecord(BT_MODULE_UUID);
     }
 
 }

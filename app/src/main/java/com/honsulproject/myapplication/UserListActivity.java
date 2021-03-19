@@ -310,10 +310,6 @@ public ValueEventListener delroom = new ValueEventListener() {
         roomnameTXT=findViewById(R.id.roomnameTXT);
     }
 
-    public void onBTClick (View v) {
-        Intent intent = new Intent(UserListActivity.this, BT_Activity.class);
-        startActivity(intent);
-    }
     public void onClick(View v){
 
         //       유저를 선택하고, 술 전달
