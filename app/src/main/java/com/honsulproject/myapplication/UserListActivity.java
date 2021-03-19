@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -49,11 +50,6 @@ public class UserListActivity extends AppCompatActivity {
     private String check,check2,flag;
     private String name;
     private String clickid="nonclick";
-
-    // sound
-    public boolean play;
-    public SoundPool soundPool;
-    public SoundManager soundManager;
 
     // Adapter
     public ArrayList<HashMap<String,String>> arrayList=new ArrayList<>();
@@ -192,6 +188,7 @@ public ValueEventListener delroom = new ValueEventListener() {
         userId=userINT.getStringExtra("userId");
         roomId=userINT.getStringExtra("roomId");
 
+
 //         List 생성 및 관리 Adapter
         adapter=new SimpleAdapter(this,arrayList,
                 android.R.layout.simple_list_item_2,
@@ -224,13 +221,7 @@ public ValueEventListener delroom = new ValueEventListener() {
                             Log.i(TAG,"signal : " + value);
                             Toast.makeText(UserListActivity.this,"signal : " + value,Toast.LENGTH_SHORT).show();
                             // 음성 시작
-                            soundPool = new SoundPool.Builder().build();
-                            soundManager = new SoundManager(UserListActivity.this,soundPool);
-                            soundManager.addSound(0,R.raw.sample);
-                            int playSoundId=soundManager.playSound(0);
-                            play = true;
-                            soundManager.pauseSound(0);
-                            play = false;
+                            sound();
                             try {
                                 Util.connectedThread.write(value);
                             }catch (NullPointerException e) {
@@ -407,5 +398,16 @@ public ValueEventListener delroom = new ValueEventListener() {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+    public void sound(){
+        SoundPool soundPool;
+        soundPool=new SoundPool(5, AudioManager.STREAM_MUSIC,0);
+        int sound=soundPool.load(UserListActivity.this,R.raw.sample,0);
+        soundPool.play(sound,1f,1f,0,0,1f);
+        int waitLimit = 10000;
+        int waitCounter = 0;
+        int throttle = 10;
+        while(soundPool.play(sound,1,1,1,0,1)==0&&waitCounter<waitLimit){}
+
     }
 }
