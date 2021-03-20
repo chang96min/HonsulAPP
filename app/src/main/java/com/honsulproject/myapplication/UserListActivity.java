@@ -11,6 +11,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -225,7 +226,7 @@ public class UserListActivity extends AppCompatActivity {
                 String ChangeKey = dataSnapshot.getKey();
                 HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
                 String value = String.valueOf(map.get("value"));
-                if (userId.equals(ChangeKey)) {
+                if (userId.equals(ChangeKey) && !value.equals("")) {
                     switch (value) {
                         case "F":
                         case "H":
@@ -241,6 +242,7 @@ public class UserListActivity extends AppCompatActivity {
                                 Toast.makeText(UserListActivity.this, "블루투스 연결이 필요합니다.", Toast.LENGTH_SHORT).show();
                             }
                             databaseReference.child(ChangeKey).child("value").setValue("");
+                            SystemClock.sleep(500);
                             break;
                         default:
                             break;
@@ -283,7 +285,7 @@ public class UserListActivity extends AppCompatActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.d("MainActivity", "ChildEventListener - onChildChanged : " + s);
                 Log.d(TAG,"roomID : " + dataSnapshot.toString());
-                if(dataSnapshot.child("userCnt").getValue().toString().equals("0")){
+                if(String.valueOf(dataSnapshot.child("userCnt").getValue()).equals("0")){
                     databaseReference_room.child(dataSnapshot.getKey()).setValue(null);
                 }
             }

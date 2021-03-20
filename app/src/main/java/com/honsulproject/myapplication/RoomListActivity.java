@@ -87,13 +87,13 @@ public class RoomListActivity extends AppCompatActivity {
                             Log.e(TAG, "Error getting data", task.getException());
                         }
                         else {
-                            Log.d(TAG,"task - getResult : " + task.getResult().toString());
-                            Log.d(TAG,"Value : " + (long) task.getResult().getValue());
+                            //Log.d(TAG,"task - getResult : " + task.getResult().toString());
+                            //Log.d(TAG,"Value : " + (long) task.getResult().getValue());
                             long Cnt = (long) task.getResult().getValue();
                             Cnt++;
-                            Log.d(TAG, "Cnt : " + Cnt);
+                            //Log.d(TAG, "Cnt : " + Cnt);
                             databaseReference.child(clickroomId).child("userCnt").setValue(Cnt);
-                            Log.d(TAG,"after Cnt = : " + (long) task.getResult().getValue());
+                            //Log.d(TAG,"after Cnt = : " + (long) task.getResult().getValue());
                         }
                     }
                 });
