@@ -54,6 +54,7 @@ public class UserListActivity extends AppCompatActivity {
     private String check, check2, flag;
     private String name;
     private String clickid = "nonclick";
+    private int music;
 
     // Adapter
     public ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
@@ -231,6 +232,8 @@ public class UserListActivity extends AppCompatActivity {
                     Toast.makeText(UserListActivity.this, "signal : " + value, Toast.LENGTH_SHORT).show();
                     // 음성 시작
                     sound();
+                    music=R.raw.song;
+                    sound();
                     try {
                         Util.connectedThread.write(value);
                     } catch (NullPointerException e) {
@@ -323,6 +326,7 @@ public class UserListActivity extends AppCompatActivity {
         if (v.getId() == R.id.halfBTN) {
             if (clickid != "nonclick") {
                 //            선택한 유저
+                music=R.raw.half;
                 databaseReference.child(clickid).child("value").setValue("H");
                 Log.d(TAG, "signal : H");
                 Toast.makeText(this, "반잔", Toast.LENGTH_SHORT).show();
@@ -333,6 +337,7 @@ public class UserListActivity extends AppCompatActivity {
             }
         } else if (v.getId() == R.id.fullBTN) {
             if (clickid != "nonclick") {
+                music=R.raw.full;
                 databaseReference.child(clickid).child("value").setValue("F");
                 Log.d(TAG, "signal : F");
 
@@ -344,6 +349,7 @@ public class UserListActivity extends AppCompatActivity {
             }
         } else if (v.getId() == R.id.onceBTN) {
             if (clickid != "nonclick") {
+                music=R.raw.once;
                 databaseReference.child(clickid).child("value").setValue("O");
                 Log.d(TAG, "signal : O");
 
@@ -424,7 +430,7 @@ public class UserListActivity extends AppCompatActivity {
     public void sound() {
         SoundPool soundPool;
         soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-        int sound = soundPool.load(UserListActivity.this, R.raw.sample, 0);
+        int sound = soundPool.load(UserListActivity.this, music, 0);
         soundPool.play(sound, 1f, 1f, 0, 0, 1f);
         int waitLimit = 10000;
         int waitCounter = 0;
