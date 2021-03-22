@@ -68,7 +68,6 @@ public class UserListActivity extends AppCompatActivity {
     public ValueEventListener findDB = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
             //roomId="87"; // 임시로 고정해놓은 roomId 값
             arrayList.clear();
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -101,8 +100,8 @@ public class UserListActivity extends AppCompatActivity {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             long Cnt = (long) snapshot.child(roomId).child("userCnt").getValue();
-            Log.d(TAG,"Cnt = " + Cnt);
-            Cnt-=1;
+            Log.d(TAG, "Cnt = " + Cnt);
+            Cnt -= 1;
             databaseReference_room.child(roomId).child("userCnt").setValue(Cnt);
         }
 
@@ -227,26 +226,19 @@ public class UserListActivity extends AppCompatActivity {
                 HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
                 String value = String.valueOf(map.get("value"));
                 if (userId.equals(ChangeKey) && !value.equals("")) {
-                    switch (value) {
-                        case "F":
-                        case "H":
-                        case "O":
-                            Log.i(TAG, "signal : " + value);
-                            Toast.makeText(UserListActivity.this, "signal : " + value, Toast.LENGTH_SHORT).show();
-                            // 음성 시작
-                            sound();
-                            try {
-                                Util.connectedThread.write(value);
-                            } catch (NullPointerException e) {
-                                e.printStackTrace();
-                                Toast.makeText(UserListActivity.this, "블루투스 연결이 필요합니다.", Toast.LENGTH_SHORT).show();
-                            }
-                            databaseReference.child(ChangeKey).child("value").setValue("");
-                            SystemClock.sleep(500);
-                            break;
-                        default:
-                            break;
+
+                    Log.i(TAG, "signal : " + value);
+                    Toast.makeText(UserListActivity.this, "signal : " + value, Toast.LENGTH_SHORT).show();
+                    // 음성 시작
+                    sound();
+                    try {
+                        Util.connectedThread.write(value);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                        Toast.makeText(UserListActivity.this, "블루투스 연결이 필요합니다.", Toast.LENGTH_SHORT).show();
                     }
+                    databaseReference.child(ChangeKey).child("value").setValue("");
+                    SystemClock.sleep(1000);
                 }
                 databaseReference.addListenerForSingleValueEvent(findDB);
             }
@@ -275,38 +267,42 @@ public class UserListActivity extends AppCompatActivity {
         });
 
         // 방 삭제 갱신하기 위해서 필요
-        FirebaseDatabase.getInstance().getReference("Room").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("MainActivity", "ChildEventListener - onChildAdded : " + dataSnapshot.getValue());
-            }
+        FirebaseDatabase.getInstance().
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.d("MainActivity", "ChildEventListener - onChildChanged : " + s);
-                Log.d(TAG,"roomID : " + dataSnapshot.toString());
-                if(String.valueOf(dataSnapshot.child("userCnt").getValue()).equals("0")){
-                    databaseReference_room.child(dataSnapshot.getKey()).setValue(null);
-                }
-            }
+                getReference("Room").
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d("MainActivity", "ChildEventListener - onChildRemoved : " + dataSnapshot.getKey());
-                databaseReference.addListenerForSingleValueEvent(del);
+                addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.d("MainActivity", "ChildEventListener - onChildAdded : " + dataSnapshot.getValue());
+                    }
 
-            }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        Log.d("MainActivity", "ChildEventListener - onChildChanged : " + s);
+                        Log.d(TAG, "roomID : " + dataSnapshot.toString());
+                        if (String.valueOf(dataSnapshot.child("userCnt").getValue()).equals("0")) {
+                            databaseReference_room.child(dataSnapshot.getKey()).setValue(null);
+                        }
+                    }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.d("MainActivity", "ChildEventListener - onChildMoved" + s);
-            }
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        Log.d("MainActivity", "ChildEventListener - onChildRemoved : " + dataSnapshot.getKey());
+                        databaseReference.addListenerForSingleValueEvent(del);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("MainActivity", "ChildEventListener - onCancelled" + databaseError.getMessage());
-            }
-        });
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        Log.d("MainActivity", "ChildEventListener - onChildMoved" + s);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d("MainActivity", "ChildEventListener - onCancelled" + databaseError.getMessage());
+                    }
+                });
 
     }
 
@@ -328,6 +324,7 @@ public class UserListActivity extends AppCompatActivity {
             if (clickid != "nonclick") {
                 //            선택한 유저
                 databaseReference.child(clickid).child("value").setValue("H");
+                Log.d(TAG, "signal : H");
                 Toast.makeText(this, "반잔", Toast.LENGTH_SHORT).show();
                 clickid = "nonclick";
                 return;
@@ -337,6 +334,8 @@ public class UserListActivity extends AppCompatActivity {
         } else if (v.getId() == R.id.fullBTN) {
             if (clickid != "nonclick") {
                 databaseReference.child(clickid).child("value").setValue("F");
+                Log.d(TAG, "signal : F");
+
                 Toast.makeText(this, "풀잔", Toast.LENGTH_SHORT).show();
                 clickid = "nonclick";
                 return;
@@ -346,6 +345,8 @@ public class UserListActivity extends AppCompatActivity {
         } else if (v.getId() == R.id.onceBTN) {
             if (clickid != "nonclick") {
                 databaseReference.child(clickid).child("value").setValue("O");
+                Log.d(TAG, "signal : O");
+
                 Toast.makeText(this, "한잔", Toast.LENGTH_SHORT).show();
                 clickid = "nonclick";
                 return;
@@ -397,7 +398,7 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 //해당 userId의 roomId를 "" 로 바꿈
-                Log.i(TAG,databaseReference.child(roomId).getKey());
+                Log.i(TAG, databaseReference.child(roomId).getKey());
                 Log.i(TAG, databaseReference.child(roomId).child("userCnt").getKey());
                 databaseReference.child(userId).child("roomId").setValue("");
                 databaseReference_room.addListenerForSingleValueEvent(CntDown);
@@ -417,6 +418,7 @@ public class UserListActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         dialog_exitroom();
+        onDestroy();
     }
 
     public void sound() {

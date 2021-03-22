@@ -125,4 +125,9 @@ public class MainActivity extends AppCompatActivity {
             databaseReference.addListenerForSingleValueEvent(checkRegister);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
