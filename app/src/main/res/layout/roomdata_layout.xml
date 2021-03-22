@@ -31,9 +31,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/Roomlist_host"
+            android:textAlignment="viewEnd"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -49,7 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/nothing" />
+            android:text="@string/nothing"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/Roomlist_host"
