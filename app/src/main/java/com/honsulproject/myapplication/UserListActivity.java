@@ -231,9 +231,21 @@ public class UserListActivity extends AppCompatActivity {
                     Log.i(TAG, "signal : " + value);
                     Toast.makeText(UserListActivity.this, "signal : " + value, Toast.LENGTH_SHORT).show();
                     // 음성 시작
-                    sound();
-                    music=R.raw.song;
-                    sound();
+                    switch (value) {
+                        case "F" :
+                            sound(R.raw.full);
+                            break;
+
+                        case "O" :
+                            sound(R.raw.once);
+                            break;
+
+                        case "H" :
+                            sound(R.raw.half);
+                            break;
+                    }
+                    SystemClock.sleep(1000);
+                    sound(R.raw.song);
                     try {
                         Util.connectedThread.write(value);
                     } catch (NullPointerException e) {
@@ -424,13 +436,12 @@ public class UserListActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         dialog_exitroom();
-        onDestroy();
     }
 
-    public void sound() {
+    public void sound(int asd) {
         SoundPool soundPool;
         soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-        int sound = soundPool.load(UserListActivity.this, music, 0);
+        int sound = soundPool.load(UserListActivity.this, asd, 0);
         soundPool.play(sound, 1f, 1f, 0, 0, 1f);
         int waitLimit = 10000;
         int waitCounter = 0;
