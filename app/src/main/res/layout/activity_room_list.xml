@@ -32,13 +32,15 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="8"
-        android:background="#FFFFFF"
+        android:background="@drawable/round_listview_shape"
         android:orientation="horizontal">
 
         <ListView
             android:id="@+id/room_listview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_listview_shape">
 
         </ListView>
     </LinearLayout>

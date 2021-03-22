@@ -29,7 +29,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="10dp"
         android:gravity="right"
         android:orientation="horizontal">
 
@@ -45,7 +45,7 @@
             android:id="@+id/delroomBTN"
             android:layout_width="30dp"
             android:layout_height="40dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="15dp"
             android:background="#FFFFFF"
             android:contentDescription="@string/delroomBTN"
             android:onClick="onClick"
@@ -57,7 +57,6 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="right"
-            android:layout_marginRight="15dp"
             android:background="#00FFFFFF"
             android:contentDescription="@string/exitroomBTN"
             android:onClick="onClick"
@@ -70,9 +69,10 @@
         android:id="@+id/user_listview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:layout_weight="1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:background="#FFFFFF">
 
     </ListView>
@@ -90,9 +90,10 @@
             android:id="@+id/halfBTN"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/hlaf"
             android:onClick="onClick" />
@@ -101,9 +102,10 @@
             android:id="@+id/onceBTN"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/oneshot"
             android:onClick="onClick" />
@@ -112,9 +114,10 @@
             android:id="@+id/fullBTN"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/full"
             android:onClick="onClick" />
