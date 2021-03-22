@@ -56,7 +56,7 @@ public class RoomListActivity extends AppCompatActivity {
                 String roomhost = dataSnapshot.child(roomId).child("userId").getValue().toString();
                 String roomName = dataSnapshot.child(roomId).child("roomName").getValue().toString();
 
-                arrayList.add(new RoomData(R.drawable.logo, roomName, roomhost, roomId));
+                arrayList.add(new RoomData(R.drawable.malll, roomName, roomhost, roomId));
                 room_listview.setAdapter(adapter);
             }
         }

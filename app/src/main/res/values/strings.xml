@@ -41,7 +41,7 @@
     <string name="bluetoothBTN">블루투스</string>
     <string name="enterroom">대기실 입장</string>
     <string name="roomnameTXT" />
-    <string name="Roomlist_host">방 주인: </string>
+    <string name="Roomlist_host">방장: </string>
     <string name="nothing">nothing</string>
     <string name="logo">LOGO</string>
 </resources>
