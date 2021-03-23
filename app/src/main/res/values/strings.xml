@@ -44,4 +44,5 @@
     <string name="Roomlist_host">방장: </string>
     <string name="nothing">nothing</string>
     <string name="logo">LOGO</string>
+    <string name="pairing">블루투스 디바이스</string>
 </resources>

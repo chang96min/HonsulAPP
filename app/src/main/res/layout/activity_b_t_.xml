@@ -36,6 +36,15 @@
         android:background="@drawable/search"
         android:onClick="onClick" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/pairing"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <ListView
         android:id="@+id/BT_list"
         android:layout_width="match_parent"
